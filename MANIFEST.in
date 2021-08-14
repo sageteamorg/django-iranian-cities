@@ -1,0 +1,2 @@
+include iranian_cities/data/*.csv
+include README.md
