@@ -32,10 +32,6 @@ Welcome to django-iranian-cities documentation!
    :target: https://django-iranian-cities.readthedocs.io/
    :alt: Documentation
 
-.. image:: https://img.shields.io/appveyor/build/mrhnz/django-iranian-cities
-   :target: https://django-iranian-cities.readthedocs.io/
-   :alt: Build
-
 |br|
 
 This app supports the following combinations of Django and Python:
