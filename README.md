@@ -91,6 +91,8 @@ class TestModelAdmin(IranianCitiesAdmin):
     pass
 ```
 
+![Admin](https://github.com/sageteam-org/django-iranian-cities/blob/master/docs/images/admin.jpg?raw=true)
+
 ## Git Rules
 
 S.A.G.E. team Git Rules Policy is available here:

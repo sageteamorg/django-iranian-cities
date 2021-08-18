@@ -5,7 +5,7 @@ setup(
     packages=find_packages(exclude=['tests*']),
     package_data={'iranian_cities/data': ['*.txt']},
     include_package_data=True,
-    version='1.0.1',
+    version='1.0.2',
     description='Iranian cities support for Django',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
