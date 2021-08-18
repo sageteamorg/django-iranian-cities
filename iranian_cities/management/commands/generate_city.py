@@ -29,6 +29,7 @@ class Command(BaseCommand):
             data = csv.DictReader(f)
             ostan_objs = [
                 Ostan(
+                    id=int(row.get('id')),
                     name=row.get('name'),
                     amar_code=row.get('amar_code')
                 ) for row in data
@@ -41,9 +42,10 @@ class Command(BaseCommand):
             data = csv.DictReader(f)
             shahrestan_objs = [
                 Shahrestan(
+                    id=int(row.get('id')),
                     name=row.get('name'),
                     amar_code=row.get('amar_code'),
-                    ostan_id=row.get('ostan')
+                    ostan_id=int(row.get('ostan'))
                 ) for row in data
             ]
             Shahrestan.objects.bulk_create(shahrestan_objs)
@@ -54,10 +56,11 @@ class Command(BaseCommand):
             data = csv.DictReader(f)
             bakhsh_objs = [
                 Bakhsh(
+                    id=int(row.get('id')),
                     name=row.get('name'),
                     amar_code=row.get('amar_code'),
-                    ostan_id=row.get('ostan'),
-                    shahrestan_id=row.get('shahrestan')
+                    ostan_id=int(row.get('ostan')),
+                    shahrestan_id=int(row.get('shahrestan'))
                 ) for row in data
             ]
             Bakhsh.objects.bulk_create(bakhsh_objs)
@@ -68,11 +71,12 @@ class Command(BaseCommand):
             data = csv.DictReader(f)
             shahr_objs = [
                 Shahr(
+                    id=int(row.get('id')),
                     name=row.get('name'),
                     amar_code=row.get('amar_code'),
-                    ostan_id=row.get('ostan'),
-                    shahrestan_id=row.get('shahrestan'),
-                    bakhsh_id=row.get('bakhsh'),
+                    ostan_id=int(row.get('ostan')),
+                    shahrestan_id=int(row.get('shahrestan')),
+                    bakhsh_id=int(row.get('bakhsh')),
                     shahr_type=row.get('shahr_type')
                 ) for row in data
             ]
@@ -84,11 +88,12 @@ class Command(BaseCommand):
             data = csv.DictReader(f)
             dehestan_objs = [
                 Dehestan(
+                    id=int(row.get('id')),
                     name=row.get('name'),
                     amar_code=row.get('amar_code'),
-                    ostan_id=row.get('ostan'),
-                    shahrestan_id=row.get('shahrestan'),
-                    bakhsh_id=row.get('bakhsh')
+                    ostan_id=int(row.get('ostan')),
+                    shahrestan_id=int(row.get('shahrestan')),
+                    bakhsh_id=int(row.get('bakhsh'))
                 ) for row in data
             ]
             Dehestan.objects.bulk_create(dehestan_objs)
@@ -99,19 +104,18 @@ class Command(BaseCommand):
             data = csv.DictReader(f)
             abadi_objs = [
                 Abadi(
+                    id=int(row.get('id')),
                     name=row.get('name'),
                     amar_code=row.get('amar_code'),
-                    ostan_id=row.get('ostan'),
-                    shahrestan_id=row.get('shahrestan'),
-                    bakhsh_id=row.get('bakhsh'),
+                    ostan_id=int(row.get('ostan')),
+                    shahrestan_id=int(row.get('shahrestan')),
+                    bakhsh_id=int(row.get('bakhsh')),
                     abadi_type=row.get('abadi_type'),
-                    dehestan_id=row.get('dehestan')
+                    dehestan_id=int(row.get('dehestan'))
                 ) for row in data
             ]
             Abadi.objects.bulk_create(abadi_objs)
             print('Dehestan Objects Created Successfully')
-
-
 
     def handle(self, *args, **options):
         ostan_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'ostan.csv')
