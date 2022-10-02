@@ -21,7 +21,7 @@ The [django-iranian-cities](https://github.com/sageteam-org/django-iranian-citie
 ## Project Detail
 
 - Language: Python > 3.6
-- Framework: Django > 3.1
+- Framework: Django > 3.2
 
 ## Getting Started
 
