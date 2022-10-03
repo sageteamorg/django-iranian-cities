@@ -2,159 +2,159 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class Ostan(models.Model):
+class Province(models.Model):
     name = models.CharField(_('Name'), max_length=255)
-    amar_code = models.IntegerField(_('Amar Code'))
+    code = models.BigIntegerField(_('Code'))
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = _('Ostan')
-        verbose_name_plural = _('Ostans')
+        verbose_name = _('Province')
+        verbose_name_plural = _('Provinces')
         ordering = ('id',)
 
 
-class Shahrestan(models.Model):
-    ostan = models.ForeignKey(
-        Ostan,
-        verbose_name=_('Ostan'),
-        related_name='shahrestans',
+class County(models.Model):
+    province = models.ForeignKey(
+        Province,
+        verbose_name=_('Province'),
+        related_name='county',
         on_delete=models.CASCADE
     )
     name = models.CharField(_('Name'), max_length=255)
-    amar_code = models.IntegerField(_('Amar Code'))
+    code = models.BigIntegerField(_('Code'))
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = _('Shahrestan')
-        verbose_name_plural = _('Shahrestans')
+        verbose_name = _('County')
+        verbose_name_plural = _('Counties')
         ordering = ('id',)
 
 
-class Bakhsh(models.Model):
-    ostan = models.ForeignKey(
-        Ostan,
-        verbose_name=_('Ostan'),
-        related_name='bakhshs',
+class District(models.Model):
+    province = models.ForeignKey(
+        Province,
+        verbose_name=_('Province'),
+        related_name='districts',
         on_delete=models.CASCADE
     )
-    shahrestan = models.ForeignKey(
-        Shahrestan,
-        verbose_name=_('Shahrestan'),
-        related_name='bakhshs',
+    county = models.ForeignKey(
+        County,
+        verbose_name=_('County'),
+        related_name='districts',
         on_delete=models.CASCADE
     )
     name = models.CharField(_('Name'), max_length=255)
-    amar_code = models.IntegerField(_('Amar Code'))
+    code = models.BigIntegerField(_('Code'))
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = _('Bakhsh')
-        verbose_name_plural = _('Bakhshs')
+        verbose_name = _('District')
+        verbose_name_plural = _('Districts')
         ordering = ('id',)
 
 
-class Shahr(models.Model):
-    ostan = models.ForeignKey(
-        Ostan,
-        verbose_name=_('Ostan'),
-        related_name='shahrs',
+class City(models.Model):
+    province = models.ForeignKey(
+        Province,
+        verbose_name=_('province'),
+        related_name='cities',
         on_delete=models.CASCADE
     )
-    shahrestan = models.ForeignKey(
-        Shahrestan,
-        verbose_name=_('Shahrestan'),
-        related_name='shahrs',
+    county = models.ForeignKey(
+        County,
+        verbose_name=_('County'),
+        related_name='cities',
         on_delete=models.CASCADE
     )
-    bakhsh = models.ForeignKey(
-        Bakhsh,
-        verbose_name=_('Bakhsh'),
-        related_name='shahrs',
+    district = models.ForeignKey(
+        District,
+        verbose_name=_('District'),
+        related_name='cities',
         on_delete=models.CASCADE
     )
     name = models.CharField(_('Name'), max_length=255)
-    amar_code = models.IntegerField(_('Amar Code'))
-    shahr_type = models.IntegerField(_('Shahr Type'))
+    code = models.BigIntegerField(_('Code'))
+    city_type = models.IntegerField(_('City Type'))
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = _('Shahr')
-        verbose_name_plural = _('Shahrs')
+        verbose_name = _('City')
+        verbose_name_plural = _('Cities')
         ordering = ('id',)
 
 
-class Dehestan(models.Model):
-    ostan = models.ForeignKey(
-        Ostan,
-        verbose_name=_('Ostan'),
-        related_name='dehestans',
+class RuralDistrict(models.Model):
+    province = models.ForeignKey(
+        Province,
+        verbose_name=_('Province'),
+        related_name='ruraldistricts',
         on_delete=models.CASCADE
     )
-    shahrestan = models.ForeignKey(
-        Shahrestan,
-        verbose_name=_('Shahrestan'),
-        related_name='dehestans',
+    county = models.ForeignKey(
+        County,
+        verbose_name=_('County'),
+        related_name='ruraldistricts',
         on_delete=models.CASCADE
     )
-    bakhsh = models.ForeignKey(
-        Bakhsh,
-        verbose_name=_('Bakhsh'),
-        related_name='dehestans',
+    district = models.ForeignKey(
+        District,
+        verbose_name=_('District'),
+        related_name='ruraldistricts',
         on_delete=models.CASCADE
     )
     name = models.CharField(_('Name'), max_length=255)
-    amar_code = models.IntegerField(_('Amar Code'))
+    code = models.BigIntegerField(_('Code'))
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = _('Dehestan')
-        verbose_name_plural = _('Dehestans')
+        verbose_name = _('Rural District')
+        verbose_name_plural = _('Rural Districts')
         ordering = ('id',)
 
 
-class Abadi(models.Model):
-    ostan = models.ForeignKey(
-        Ostan,
-        verbose_name=_('Ostan'),
-        related_name='abadies',
+class Village(models.Model):
+    province = models.ForeignKey(
+        Province,
+        verbose_name=_('Province'),
+        related_name='villages',
         on_delete=models.CASCADE
     )
-    shahrestan = models.ForeignKey(
-        Shahrestan,
-        verbose_name=_('Shahrestan'),
-        related_name='abadies',
+    county = models.ForeignKey(
+        County,
+        verbose_name=_('County'),
+        related_name='villages',
         on_delete=models.CASCADE
     )
-    bakhsh = models.ForeignKey(
-        Bakhsh,
-        verbose_name=_('Bakhsh'),
-        related_name='abadies',
+    district = models.ForeignKey(
+        District,
+        verbose_name=_('District'),
+        related_name='villages',
         on_delete=models.CASCADE
     )
-    dehestan = models.ForeignKey(
-        Dehestan,
-        verbose_name=_('Dehestan'),
-        related_name='abadies',
+    rural_district = models.ForeignKey(
+        RuralDistrict,
+        verbose_name=_('Rural District'),
+        related_name='villages',
         on_delete=models.CASCADE
     )
     name = models.CharField(_('Name'), max_length=255)
-    amar_code = models.IntegerField(_('Amar Code'))
-    abadi_type = models.IntegerField(_('Abadi Type'))
+    code = models.BigIntegerField(_('Code'))
+    village_type = models.IntegerField(_('Village Type'))
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = _('Abadi')
-        verbose_name_plural = _('Abadies')
+        verbose_name = _('Village')
+        verbose_name_plural = _('Villages')
         ordering = ('id',)

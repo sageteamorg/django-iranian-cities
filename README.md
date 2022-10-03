@@ -61,20 +61,19 @@ You can use field like this:
 
 ```python
 from django.db import models
-from iranian_cities.fields import OstanField
+from iranian_cities.fields import ProvinceField
 
 class TestModel(models.Model):
-    ostan = OstanField()
-```
+    province = ProvinceField()
 
 list of fields:
 
-- OstanField
-- ShahrestanField
-- BakhshField
-- ShahrField
-- DehestanField
-- AbadiField
+- ProvinceField
+- CountyField
+- DistrictField
+- CityField
+- RuralDistrictField
+- VillageField
 
 
 ## Admin

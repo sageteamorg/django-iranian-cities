@@ -5,8 +5,8 @@ from django.core.management import BaseCommand
 
 from iranian_cities import data
 from iranian_cities.models import (
-    Ostan, Shahrestan, Bakhsh,
-    Shahr, Dehestan, Abadi
+    Province, County, District,
+    City, RuralDistrict, Village
 )
 
 
@@ -24,113 +24,113 @@ class Command(BaseCommand):
                 print(row)
             return csv_reader
 
-    def generate_ostan(self, path):
+    def generate_province(self, path):
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
-            ostan_objs = [
-                Ostan(
+            province_objs = [
+                Province(
                     id=int(row.get('id')),
                     name=row.get('name'),
-                    amar_code=row.get('amar_code')
+                    code=row.get('code')
                 ) for row in data
             ]
-            Ostan.objects.bulk_create(ostan_objs)
-            print('Ostan Objects Created Successfully')
+            Province.objects.bulk_create(province_objs)
+            print('Province Objects Created Successfully')
 
-    def generate_shahrestan(self, path):
+    def generate_county(self, path):
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
-            shahrestan_objs = [
-                Shahrestan(
+            county_objs = [
+                County(
                     id=int(row.get('id')),
                     name=row.get('name'),
-                    amar_code=row.get('amar_code'),
-                    ostan_id=int(row.get('ostan'))
+                    code=row.get('code'),
+                    province_id=int(row.get('province'))
                 ) for row in data
             ]
-            Shahrestan.objects.bulk_create(shahrestan_objs)
-            print('Shahrestan Objects Created Successfully')
+            County.objects.bulk_create(county_objs)
+            print('County Objects Created Successfully')
 
-    def generate_bakhsh(self, path):
+    def generate_district(self, path):
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
-            bakhsh_objs = [
-                Bakhsh(
+            district_objs = [
+                District(
                     id=int(row.get('id')),
                     name=row.get('name'),
-                    amar_code=row.get('amar_code'),
-                    ostan_id=int(row.get('ostan')),
-                    shahrestan_id=int(row.get('shahrestan'))
+                    code=row.get('code'),
+                    province_id=int(row.get('province')),
+                    county_id=int(row.get('county'))
                 ) for row in data
             ]
-            Bakhsh.objects.bulk_create(bakhsh_objs)
-            print('Bakhsh Objects Created Successfully')
+            District.objects.bulk_create(district_objs)
+            print('District Objects Created Successfully')
 
-    def generate_shahr(self, path):
+    def generate_city(self, path):
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
-            shahr_objs = [
-                Shahr(
+            city_objs = [
+                City(
                     id=int(row.get('id')),
                     name=row.get('name'),
-                    amar_code=row.get('amar_code'),
-                    ostan_id=int(row.get('ostan')),
-                    shahrestan_id=int(row.get('shahrestan')),
-                    bakhsh_id=int(row.get('bakhsh')),
-                    shahr_type=row.get('shahr_type')
+                    code=row.get('code'),
+                    province_id=int(row.get('province')),
+                    county_id=int(row.get('county')),
+                    district_id=int(row.get('district')),
+                    city_type=row.get('city_type')
                 ) for row in data
             ]
-            Shahr.objects.bulk_create(shahr_objs)
-            print('Shahr Objects Created Successfully')
+            City.objects.bulk_create(city_objs)
+            print('City Objects Created Successfully')
 
-    def generate_dehestan(self, path):
+    def generate_rural_district(self, path):
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
-            dehestan_objs = [
-                Dehestan(
+            rural_district_objs = [
+                RuralDistrict(
                     id=int(row.get('id')),
                     name=row.get('name'),
-                    amar_code=row.get('amar_code'),
-                    ostan_id=int(row.get('ostan')),
-                    shahrestan_id=int(row.get('shahrestan')),
-                    bakhsh_id=int(row.get('bakhsh'))
+                    code=row.get('code'),
+                    province_id=int(row.get('province')),
+                    county_id=int(row.get('county')),
+                    district_id=int(row.get('district'))
                 ) for row in data
             ]
-            Dehestan.objects.bulk_create(dehestan_objs)
-            print('Dehestan Objects Created Successfully')
+            RuralDistrict.objects.bulk_create(rural_district_objs)
+            print('RuralDistrict Objects Created Successfully')
 
-    def generate_abadi(self, path):
+    def generate_village(self, path):
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
-            abadi_objs = [
-                Abadi(
+            village_objs = [
+                Village(
                     id=int(row.get('id')),
                     name=row.get('name'),
-                    amar_code=row.get('amar_code'),
-                    ostan_id=int(row.get('ostan')),
-                    shahrestan_id=int(row.get('shahrestan')),
-                    bakhsh_id=int(row.get('bakhsh')),
-                    abadi_type=row.get('abadi_type'),
-                    dehestan_id=int(row.get('dehestan'))
+                    code=row.get('code'),
+                    province_id=int(row.get('province')),
+                    county_id=int(row.get('county')),
+                    district_id=int(row.get('district')),
+                    village_type=row.get('village_type'),
+                    rural_district_id=int(row.get('rural_district'))
                 ) for row in data
             ]
-            Abadi.objects.bulk_create(abadi_objs)
-            print('Dehestan Objects Created Successfully')
+            Village.objects.bulk_create(village_objs)
+            print('Village Objects Created Successfully')
 
     def handle(self, *args, **options):
-        ostan_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'ostan.csv')
-        shahrestan_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'shahrestan.csv')
-        bakhsh_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'bakhsh.csv')
-        shahr_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'shahr.csv')
-        dehestan_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'dehestan.csv')
-        abadi_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'abadi.csv')
+        province_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'province.csv')
+        county_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'county.csv')
+        district_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'district.csv')
+        city_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'city.csv')
+        rural_district_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'rural_district.csv')
+        village_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'village.csv')
 
-        self.generate_ostan(ostan_data_path)
-        self.generate_shahrestan(shahrestan_data_path)
-        self.generate_bakhsh(bakhsh_data_path)
-        self.generate_shahr(shahr_data_path)
-        self.generate_dehestan(dehestan_data_path)
-        self.generate_abadi(abadi_data_path)
+        self.generate_province(province_data_path)
+        self.generate_county(county_data_path)
+        self.generate_district(district_data_path)
+        self.generate_city(city_data_path)
+        self.generate_rural_district(rural_district_data_path)
+        self.generate_village(village_data_path)
 
         self.stdout.write(
             self.style.SUCCESS('Data generated successfully.')

@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.contrib.admin import widgets
 from iranian_cities.models import (
-    Ostan, Shahrestan, Shahr,
-    Bakhsh, Dehestan, Abadi
+    Province, County, District,
+    City, RuralDistrict, Village
 )
 
 class IranianCitiesAdmin(admin.ModelAdmin):
@@ -18,10 +18,10 @@ class IranianCitiesAdmin(admin.ModelAdmin):
 
         return db_field.formfield(**kwargs)
 
-@admin.register(Ostan)
-class OstanAdmin(admin.ModelAdmin):
-    list_display = ['name', 'amar_code']
-    search_fields = ['name', 'amar_code']
+@admin.register(Province)
+class ProvinceAdmin(admin.ModelAdmin):
+    list_display = ['name', 'code']
+    search_fields = ['name', 'code']
 
     def has_add_permission(self, request):
         return False
@@ -32,12 +32,12 @@ class OstanAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
-@admin.register(Shahrestan)
-class ShahrestanAdmin(admin.ModelAdmin):
-    list_display = ['name', 'amar_code', 'ostan']
-    list_filter = ['ostan']
-    search_fields = ['name', 'amar_code', 'ostan__name']
-    raw_id_fields = ['ostan']
+@admin.register(County)
+class CountyAdmin(admin.ModelAdmin):
+    list_display = ['name', 'code', 'province']
+    list_filter = ['province']
+    search_fields = ['name', 'code', 'province__name']
+    raw_id_fields = ['province']
 
     def has_add_permission(self, request):
         return False
@@ -48,18 +48,18 @@ class ShahrestanAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
-@admin.register(Shahr)
-class ShahrAdmin(admin.ModelAdmin):
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
     list_display = [
-        'name', 'amar_code', 'shahr_type',
-        'bakhsh', 'shahrestan', 'ostan'
+        'name', 'code', 'city_type',
+        'district', 'county', 'province'
     ]
-    list_filter = ['ostan']
+    list_filter = ['province']
     search_fields = [
-        'name', 'amar_code', 'shahr_type',
-        'bakhsh__name', 'shahrestan__name', 'ostan__name'
+        'name', 'code', 'city_type',
+        'district__name', 'county__name', 'province__name'
     ]
-    raw_id_fields = ['bakhsh', 'shahrestan', 'ostan']
+    raw_id_fields = ['district', 'county', 'province']
 
     def has_add_permission(self, request):
         return False
@@ -70,12 +70,12 @@ class ShahrAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
-@admin.register(Bakhsh)
-class BakhshAdmin(admin.ModelAdmin):
-    list_display = ['name', 'amar_code', 'shahrestan', 'ostan']
-    list_filter = ['ostan']
-    search_fields = ['name', 'amar_code', 'shahrestan__name', 'ostan__name']
-    raw_id_fields = ['shahrestan', 'ostan']
+@admin.register(District)
+class DistrictAdmin(admin.ModelAdmin):
+    list_display = ['name', 'code', 'county', 'province']
+    list_filter = ['province']
+    search_fields = ['name', 'code', 'county__name', 'province__name']
+    raw_id_fields = ['county', 'province']
 
     def has_add_permission(self, request):
         return False
@@ -86,12 +86,12 @@ class BakhshAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
-@admin.register(Dehestan)
-class DehestanAdmin(admin.ModelAdmin):
-    list_display = ['name', 'amar_code', 'bakhsh', 'shahrestan', 'ostan']
-    list_filter = ['ostan']
-    search_fields = ['name', 'amar_code', 'bakhsh__name', 'shahrestan__name', 'ostan__name']
-    raw_id_fields = ['bakhsh', 'shahrestan', 'ostan']
+@admin.register(RuralDistrict)
+class RuralDistrictAdmin(admin.ModelAdmin):
+    list_display = ['name', 'code', 'district', 'county', 'province']
+    list_filter = ['province']
+    search_fields = ['name', 'code', 'district__name', 'county__name', 'province__name']
+    raw_id_fields = ['district', 'county', 'province']
 
     def has_add_permission(self, request):
         return False
@@ -102,18 +102,18 @@ class DehestanAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
         return False
 
-@admin.register(Abadi)
-class AbadiAdmin(admin.ModelAdmin):
+@admin.register(Village)
+class VillageAdmin(admin.ModelAdmin):
     list_display = [
-        'name', 'amar_code', 'abadi_type',
-        'dehestan', 'bakhsh', 'shahrestan', 'ostan'
+        'name', 'code', 'village_type',
+        'rural_district', 'district', 'county', 'province'
     ]
-    list_filter = ['ostan']
+    list_filter = ['province']
     search_fields = [
-        'name', 'amar_code', 'dehestan__name',
-        'bakhsh__name', 'shahrestan__name', 'ostan__name'
+        'name', 'code', 'rural_district__name',
+        'district__name', 'county__name', 'province__name'
     ]
-    raw_id_fields = ['dehestan', 'bakhsh', 'shahrestan', 'ostan']
+    raw_id_fields = ['rural_district', 'district', 'county', 'province']
 
     def has_add_permission(self, request):
         return False
