@@ -1,40 +1,27 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from iranian_cities.mixins import BaseLocation
 
-
-class Province(models.Model):
-    name = models.CharField(_('Name'), max_length=255)
-    code = models.BigIntegerField(_('Code'))
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
+class Province(BaseLocation):
+    class Meta(BaseLocation.Meta):
         verbose_name = _('Province')
         verbose_name_plural = _('Provinces')
-        ordering = ('id',)
 
 
-class County(models.Model):
+class County(BaseLocation):
     province = models.ForeignKey(
         Province,
         verbose_name=_('Province'),
-        related_name='county',
+        related_name='counties',
         on_delete=models.CASCADE
     )
-    name = models.CharField(_('Name'), max_length=255)
-    code = models.BigIntegerField(_('Code'))
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
+    class Meta(BaseLocation.Meta):
         verbose_name = _('County')
         verbose_name_plural = _('Counties')
-        ordering = ('id',)
 
 
-class District(models.Model):
+class District(BaseLocation):
     province = models.ForeignKey(
         Province,
         verbose_name=_('Province'),
@@ -47,22 +34,16 @@ class District(models.Model):
         related_name='districts',
         on_delete=models.CASCADE
     )
-    name = models.CharField(_('Name'), max_length=255)
-    code = models.BigIntegerField(_('Code'))
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
+    class Meta(BaseLocation.Meta):
         verbose_name = _('District')
         verbose_name_plural = _('Districts')
-        ordering = ('id',)
 
 
-class City(models.Model):
+class City(BaseLocation):
     province = models.ForeignKey(
         Province,
-        verbose_name=_('province'),
+        verbose_name=_('Province'),
         related_name='cities',
         on_delete=models.CASCADE
     )
@@ -78,20 +59,14 @@ class City(models.Model):
         related_name='cities',
         on_delete=models.CASCADE
     )
-    name = models.CharField(_('Name'), max_length=255)
-    code = models.BigIntegerField(_('Code'))
     city_type = models.IntegerField(_('City Type'))
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
+    class Meta(BaseLocation.Meta):
         verbose_name = _('City')
         verbose_name_plural = _('Cities')
-        ordering = ('id',)
 
 
-class RuralDistrict(models.Model):
+class RuralDistrict(BaseLocation):
     province = models.ForeignKey(
         Province,
         verbose_name=_('Province'),
@@ -110,19 +85,13 @@ class RuralDistrict(models.Model):
         related_name='ruraldistricts',
         on_delete=models.CASCADE
     )
-    name = models.CharField(_('Name'), max_length=255)
-    code = models.BigIntegerField(_('Code'))
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
+    class Meta(BaseLocation.Meta):
         verbose_name = _('Rural District')
         verbose_name_plural = _('Rural Districts')
-        ordering = ('id',)
 
 
-class Village(models.Model):
+class Village(BaseLocation):
     province = models.ForeignKey(
         Province,
         verbose_name=_('Province'),
@@ -147,14 +116,8 @@ class Village(models.Model):
         related_name='villages',
         on_delete=models.CASCADE
     )
-    name = models.CharField(_('Name'), max_length=255)
-    code = models.BigIntegerField(_('Code'))
     village_type = models.IntegerField(_('Village Type'))
 
-    def __str__(self):
-        return self.name
-
-    class Meta:
+    class Meta(BaseLocation.Meta):
         verbose_name = _('Village')
         verbose_name_plural = _('Villages')
-        ordering = ('id',)
