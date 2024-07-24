@@ -1,4 +1,4 @@
-from django.db.models import Model, CharField, BigIntegerField
+from django.db.models import Model, Index, CharField, BigIntegerField
 from django.utils.translation import gettext_lazy as _
 
 
@@ -15,7 +15,8 @@ class BaseLocation(Model):
     code = BigIntegerField(
         verbose_name=_("Code"),
         help_text=_("The code representing the location."),
-        db_comment=_("This field stores the code for the location.")        
+        db_comment=_("This field stores the code for the location."),
+        unique=True        
     )
 
 
@@ -24,4 +25,7 @@ class BaseLocation(Model):
 
     class Meta:
         abstract = True
-        ordering = ("id",)
+        ordering = ["id"]
+        indexes = [
+            Index(fields=["code"]),
+        ]
