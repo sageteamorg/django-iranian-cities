@@ -4,9 +4,7 @@ from iranian_cities.mixins import BaseLocation
 
 class Province(BaseLocation):
     """
-    Model representing a province.
-
-    Inherits from BaseLocation.
+    Represents a province entity within the application.
     """
     class Meta(BaseLocation.Meta):
         verbose_name = _('Province')
@@ -16,10 +14,7 @@ class Province(BaseLocation):
 
 class County(BaseLocation):
     """
-    Model representing a county.
-
-    Attributes:
-        province (ForeignKey): The province to which the county belongs.
+    Represents a county within a province.
     """
     province = models.ForeignKey(
         Province,
@@ -38,11 +33,7 @@ class County(BaseLocation):
 
 class District(BaseLocation):
     """
-    Model representing a district.
-
-    Attributes:
-        province (ForeignKey): The province to which the district belongs.
-        county (ForeignKey): The county to which the district belongs.
+    Represents a district within a county.
     """
     province = models.ForeignKey(
         Province,
@@ -66,15 +57,10 @@ class District(BaseLocation):
         verbose_name_plural = _('Districts')
         db_table_comment = _("Model representing a district within a county.")
 
+
 class City(BaseLocation):
     """
-    Model representing a city.
-
-    Attributes:
-        province (ForeignKey): The province to which the city belongs.
-        county (ForeignKey): The county to which the city belongs.
-        district (ForeignKey): The district to which the city belongs.
-        city_type (int): The type/category of the city.
+    Represents a city within a district.
     """
     province = models.ForeignKey(
         Province,
@@ -114,12 +100,7 @@ class City(BaseLocation):
 
 class RuralDistrict(BaseLocation):
     """
-    Model representing a rural district.
-
-    Attributes:
-        province (ForeignKey): The province to which the rural district belongs.
-        county (ForeignKey): The county to which the rural district belongs.
-        district (ForeignKey): The district to which the rural district belongs.
+    Represents a rural district within a district.
     """
     province = models.ForeignKey(
         Province,
@@ -154,14 +135,7 @@ class RuralDistrict(BaseLocation):
 
 class Village(BaseLocation):
     """
-    Model representing a village.
-
-    Attributes:
-        province (ForeignKey): The province to which the village belongs.
-        county (ForeignKey): The county to which the village belongs.
-        district (ForeignKey): The district to which the village belongs.
-        rural_district (ForeignKey): The rural district to which the village belongs.
-        village_type (int): The type/category of the village.
+    Represents a village within a rural district.
     """
     province = models.ForeignKey(
         Province,
@@ -200,7 +174,6 @@ class Village(BaseLocation):
         help_text=_("The type of village."),
         db_comment=_("Field to define the type of village.")
     )
-
 
     class Meta(BaseLocation.Meta):
         verbose_name = _('Village')

@@ -5,10 +5,6 @@ from django.utils.translation import gettext_lazy as _
 class BaseLocation(Model):
     """
     Abstract base model for location entities.
-
-    Attributes:
-        name (str): The name of the location.
-        code (int): The unique code for the location.
     """
     name = CharField(
         verbose_name=_("Name"),
