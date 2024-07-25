@@ -9,7 +9,8 @@ class Province(BaseLocation):
     class Meta(BaseLocation.Meta):
         verbose_name = _('Province')
         verbose_name_plural = _('Provinces')
-        db_table_comment = _("Model representing a province.")
+        db_table_comment = "Model representing a province."
+        db_table = "sage_province"
 
 
 class County(BaseLocation):
@@ -28,7 +29,8 @@ class County(BaseLocation):
     class Meta(BaseLocation.Meta):
         verbose_name = _('County')
         verbose_name_plural = _('Counties')
-        db_table_comment = _("Model representing a county within a province.")
+        db_table_comment = "Model representing a county within a province."
+        db_table = "sage_county"
 
 
 class District(BaseLocation):
@@ -55,7 +57,8 @@ class District(BaseLocation):
     class Meta(BaseLocation.Meta):
         verbose_name = _('District')
         verbose_name_plural = _('Districts')
-        db_table_comment = _("Model representing a district within a county.")
+        db_table_comment = "Model representing a district within a county."
+        table_name = "sage_district"
 
 
 class City(BaseLocation):
@@ -95,7 +98,8 @@ class City(BaseLocation):
     class Meta(BaseLocation.Meta):
         verbose_name = _('City')
         verbose_name_plural = _('Cities')
-        db_table_comment = _("Model representing a city within a district.")
+        db_table_comment = "Model representing a city within a district."
+        table_name = "sage_city"
 
 
 class RuralDistrict(BaseLocation):
@@ -130,7 +134,8 @@ class RuralDistrict(BaseLocation):
     class Meta(BaseLocation.Meta):
         verbose_name = _('Rural District')
         verbose_name_plural = _('Rural Districts')
-        db_table_comment = _("Model representing a rural district within a district.")
+        db_table_comment = "Model representing a rural district within a district."
+        table_name = "sage_rural_district"
 
 
 class Village(BaseLocation):
@@ -178,4 +183,5 @@ class Village(BaseLocation):
     class Meta(BaseLocation.Meta):
         verbose_name = _('Village')
         verbose_name_plural = _('Villages')
-        db_table_comment = _("Model representing a village within a rural district.")
+        db_table_comment = "Model representing a village within a rural district."
+        table_name = "sage_village"
