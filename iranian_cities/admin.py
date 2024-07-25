@@ -4,6 +4,7 @@ from iranian_cities.models import (
     Province, County, District,
     City, RuralDistrict, Village
 )
+from iranian_cities.mixins.no_add_delete_change import NoAddDeleteChangeMixin
 
 class IranianCitiesAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -19,37 +20,19 @@ class IranianCitiesAdmin(admin.ModelAdmin):
         return db_field.formfield(**kwargs)
 
 @admin.register(Province)
-class ProvinceAdmin(admin.ModelAdmin):
+class ProvinceAdmin(NoAddDeleteChangeMixin, admin.ModelAdmin):
     list_display = ['name', 'code']
     search_fields = ['name', 'code']
 
-    def has_add_permission(self, request):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
 @admin.register(County)
-class CountyAdmin(admin.ModelAdmin):
+class CountyAdmin(NoAddDeleteChangeMixin, admin.ModelAdmin):
     list_display = ['name', 'code', 'province']
     list_filter = ['province']
     search_fields = ['name', 'code', 'province__name']
     raw_id_fields = ['province']
 
-    def has_add_permission(self, request):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
 @admin.register(City)
-class CityAdmin(admin.ModelAdmin):
+class CityAdmin(NoAddDeleteChangeMixin, admin.ModelAdmin):
     list_display = [
         'name', 'code', 'city_type',
         'district', 'county', 'province'
@@ -61,49 +44,22 @@ class CityAdmin(admin.ModelAdmin):
     ]
     raw_id_fields = ['district', 'county', 'province']
 
-    def has_add_permission(self, request):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
 @admin.register(District)
-class DistrictAdmin(admin.ModelAdmin):
+class DistrictAdmin(NoAddDeleteChangeMixin, admin.ModelAdmin):
     list_display = ['name', 'code', 'county', 'province']
     list_filter = ['province']
     search_fields = ['name', 'code', 'county__name', 'province__name']
     raw_id_fields = ['county', 'province']
 
-    def has_add_permission(self, request):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
 @admin.register(RuralDistrict)
-class RuralDistrictAdmin(admin.ModelAdmin):
+class RuralDistrictAdmin(NoAddDeleteChangeMixin, admin.ModelAdmin):
     list_display = ['name', 'code', 'district', 'county', 'province']
     list_filter = ['province']
     search_fields = ['name', 'code', 'district__name', 'county__name', 'province__name']
     raw_id_fields = ['district', 'county', 'province']
 
-    def has_add_permission(self, request):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
 @admin.register(Village)
-class VillageAdmin(admin.ModelAdmin):
+class VillageAdmin(NoAddDeleteChangeMixin, admin.ModelAdmin):
     list_display = [
         'name', 'code', 'village_type',
         'rural_district', 'district', 'county', 'province'
@@ -114,12 +70,3 @@ class VillageAdmin(admin.ModelAdmin):
         'district__name', 'county__name', 'province__name'
     ]
     raw_id_fields = ['rural_district', 'district', 'county', 'province']
-
-    def has_add_permission(self, request):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
