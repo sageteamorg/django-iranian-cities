@@ -58,7 +58,7 @@ class District(BaseLocation):
         verbose_name = _('District')
         verbose_name_plural = _('Districts')
         db_table_comment = "Model representing a district within a county."
-        table_name = "sage_district"
+        db_table = "sage_district"
 
 
 class City(BaseLocation):
@@ -99,7 +99,7 @@ class City(BaseLocation):
         verbose_name = _('City')
         verbose_name_plural = _('Cities')
         db_table_comment = "Model representing a city within a district."
-        table_name = "sage_city"
+        db_table = "sage_city"
 
 
 class RuralDistrict(BaseLocation):
@@ -135,7 +135,7 @@ class RuralDistrict(BaseLocation):
         verbose_name = _('Rural District')
         verbose_name_plural = _('Rural Districts')
         db_table_comment = "Model representing a rural district within a district."
-        table_name = "sage_rural_district"
+        db_table = "sage_rural_district"
 
 
 class Village(BaseLocation):
@@ -184,4 +184,4 @@ class Village(BaseLocation):
         verbose_name = _('Village')
         verbose_name_plural = _('Villages')
         db_table_comment = "Model representing a village within a rural district."
-        table_name = "sage_village"
+        db_table = "sage_village"
