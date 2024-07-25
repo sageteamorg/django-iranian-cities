@@ -1,14 +1,9 @@
 import os
 import csv
-
 from django.core.management import BaseCommand
-
+from django.db import transaction, connections
 from iranian_cities import data
-from iranian_cities.models import (
-    Province, County, District,
-    City, RuralDistrict, Village
-)
-
+from iranian_cities.models import Province, County, District, City, RuralDistrict, Village
 
 class Command(BaseCommand):
     help = 'Generate all data'
@@ -23,6 +18,42 @@ class Command(BaseCommand):
             for row in csv_reader:
                 print(row)
             return csv_reader
+
+    def prompt_user(self):
+        existing_data = {
+            "Provinces": Province.objects.exists(),
+            "Counties": County.objects.exists(),
+            "Districts": District.objects.exists(),
+            "Cities": City.objects.exists(),
+            "Rural Districts": RuralDistrict.objects.exists(),
+            "Villages": Village.objects.exists()
+        }
+        if any(existing_data.values()):
+            data_present = ", ".join(k for k, v in existing_data.items() if v)
+            response = input(
+                f"Your database currently has objects for the following tables: {data_present}. "
+                "\nDo you want to flush the tables? Type 'yes' or 'no' to flush the tables: "
+            ).strip().lower()
+            if response not in ['yes', 'no']:
+                print("Invalid response. Please type 'yes' or 'no'.")
+                return self.prompt_user()
+            elif response == 'yes':
+                self.flush_tables()
+            else:
+                self.stdout.write(
+                    self.style.ERROR('Command canceled. To avoid unique constraint errors,existing records must be flushed..')
+                )
+                return False
+        return True
+
+    def flush_tables(self):
+        Province.objects.all().delete()
+        County.objects.all().delete()
+        District.objects.all().delete()
+        City.objects.all().delete()
+        RuralDistrict.objects.all().delete()
+        Village.objects.all().delete()
+        print("All tables have been flushed.")
 
     def generate_province(self, path):
         with open(path, encoding='utf-8') as f:
@@ -118,6 +149,9 @@ class Command(BaseCommand):
             print('Village Objects Created Successfully')
 
     def handle(self, *args, **options):
+        if not self.prompt_user():
+            return
+
         province_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'province.csv')
         county_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'county.csv')
         district_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'district.csv')
