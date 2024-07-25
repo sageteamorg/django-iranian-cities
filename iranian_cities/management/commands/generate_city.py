@@ -4,23 +4,41 @@ from django.core.management import BaseCommand
 from django.db import transaction, connections
 from iranian_cities import data
 from iranian_cities.models import Province, County, District, City, RuralDistrict, Village
+from typing import List, Dict
 
 class Command(BaseCommand):
+    """Management command to generate and populate database tables for Iranian cities."""
+    
     help = 'Generate all data'
 
     def add_arguments(self, parser):
-        """initialize arguments"""
+        """Initialize command line arguments (currently none)."""
         pass
 
-    def read_csv(self, path):
+    def read_csv(self, path: str) -> List[Dict[str, str]]:
+        """
+        Read a CSV file and return a list of dictionaries.
+
+        Args:
+            path (str): The path to the CSV file.
+
+        Returns:
+            List[Dict[str, str]]: A list of dictionaries representing CSV rows.
+        """
         with open(path, encoding='utf-8') as f:
             csv_reader = csv.DictReader(f)
             for row in csv_reader:
                 print(row)
             return csv_reader
 
-    def prompt_user(self):
-        existing_data = {
+    def prompt_user(self) -> bool:
+        """
+        Prompt the user to decide whether to flush the tables.
+
+        Returns:
+            bool: True if the tables should be flushed, False otherwise.
+        """
+        existing_data: Dict[str, bool]  = {
             "Provinces": Province.objects.exists(),
             "Counties": County.objects.exists(),
             "Districts": District.objects.exists(),
@@ -58,6 +76,7 @@ class Command(BaseCommand):
             
 
     def flush_tables(self):
+        """Delete all records from the relevant tables."""
         Province.objects.all().delete()
         County.objects.all().delete()
         District.objects.all().delete()
@@ -66,7 +85,13 @@ class Command(BaseCommand):
         Village.objects.all().delete()
         print("All tables have been flushed.")
 
-    def generate_province(self, path):
+    def generate_province(self, path: str) -> None:
+        """
+        Generate and populate the Province table.
+
+        Args:
+            path (str): The path to the CSV file containing province data.
+        """
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
             province_objs = [
@@ -79,7 +104,13 @@ class Command(BaseCommand):
             Province.objects.bulk_create(province_objs)
             print('Province Objects Created Successfully')
 
-    def generate_county(self, path):
+    def generate_county(self, path: str) -> None:
+        """
+        Generate and populate the County table.
+
+        Args:
+            path (str): The path to the CSV file containing county data.
+        """
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
             county_objs = [
@@ -93,7 +124,13 @@ class Command(BaseCommand):
             County.objects.bulk_create(county_objs)
             print('County Objects Created Successfully')
 
-    def generate_district(self, path):
+    def generate_district(self, path: str) -> None:
+        """
+        Generate and populate the District table.
+
+        Args:
+            path (str): The path to the CSV file containing district data.
+        """
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
             district_objs = [
@@ -108,7 +145,13 @@ class Command(BaseCommand):
             District.objects.bulk_create(district_objs)
             print('District Objects Created Successfully')
 
-    def generate_city(self, path):
+    def generate_city(self, path: str) -> None:
+        """
+        Generate and populate the City table.
+
+        Args:
+            path (str): The path to the CSV file containing city data.
+        """
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
             city_objs = [
@@ -125,7 +168,13 @@ class Command(BaseCommand):
             City.objects.bulk_create(city_objs)
             print('City Objects Created Successfully')
 
-    def generate_rural_district(self, path):
+    def generate_rural_district(self, path: str) -> None:
+        """
+        Generate and populate the RuralDistrict table.
+
+        Args:
+            path (str): The path to the CSV file containing rural district data.
+        """
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
             rural_district_objs = [
@@ -141,7 +190,13 @@ class Command(BaseCommand):
             RuralDistrict.objects.bulk_create(rural_district_objs)
             print('RuralDistrict Objects Created Successfully')
 
-    def generate_village(self, path):
+    def generate_village(self, path: str) -> None:
+        """
+        Generate and populate the Village table.
+
+        Args:
+            path (str): The path to the CSV file containing village data.
+        """
         with open(path, encoding='utf-8') as f:
             data = csv.DictReader(f)
             village_objs = [
@@ -159,7 +214,14 @@ class Command(BaseCommand):
             Village.objects.bulk_create(village_objs)
             print('Village Objects Created Successfully')
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **options) -> None:
+        """
+        Handle the command execution, prompting user and generating data.
+
+        Args:
+            *args: Variable length argument list.
+            **options: Arbitrary keyword arguments.
+        """
         result = self.prompt_user()
         if not result:
             return
