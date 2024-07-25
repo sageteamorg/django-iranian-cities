@@ -30,21 +30,32 @@ class Command(BaseCommand):
         }
         if any(existing_data.values()):
             data_present = ", ".join(k for k, v in existing_data.items() if v)
-            response = input(
-                f"Your database currently has objects for the following tables: {data_present}. "
-                "\nDo you want to flush the tables? Type 'yes' or 'no' to flush the tables: "
-            ).strip().lower()
-            if response not in ['yes', 'no']:
-                print("Invalid response. Please type 'yes' or 'no'.")
-                return self.prompt_user()
-            elif response == 'yes':
-                self.flush_tables()
-            else:
-                self.stdout.write(
-                    self.style.ERROR('Command canceled. To avoid unique constraint errors,existing records must be flushed..')
-                )
-                return False
-        return True
+            while True:
+                try:
+                    response = input(
+                        f"Your database currently has objects for the following tables: {data_present}. "
+                        "\nDo you want to flush the tables? Type 'yes' to flush or 'no' to cancel the operation: "
+                    ).strip().lower()
+                    
+                    if response not in ['yes', 'no']:
+                        print("Invalid response. Please type 'yes' or 'no'.")
+                    elif response == 'yes':
+                        self.flush_tables()
+                        break
+                    else:
+                        self.stdout.write(
+                            self.style.ERROR('Operation canceled. No changes were made to the database.')
+                        )
+                        break
+
+                except KeyboardInterrupt:
+                    self.stdout.write(
+                        self.style.ERROR('Operation interrupted by user. No changes were made to the database.')
+                    )
+                    break
+            result = True if response == 'yes' else False
+            return result
+            
 
     def flush_tables(self):
         Province.objects.all().delete()
@@ -149,9 +160,9 @@ class Command(BaseCommand):
             print('Village Objects Created Successfully')
 
     def handle(self, *args, **options):
-        if not self.prompt_user():
+        result = self.prompt_user()
+        if not result:
             return
-
         province_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'province.csv')
         county_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'county.csv')
         district_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'district.csv')
