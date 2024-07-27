@@ -42,10 +42,15 @@ def check_iranian_cities_config(app_configs: Dict[str, Any], **kwargs: Any) -> L
     errors: List[Error] = []
 
     def get_iranian_cities_settings() -> Dict[str, Any]:
+
+        sage_iranian_cities_admin_add_readonly_enabled: bool = sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_ADD_READONLY_ENABLED
+        sage_iranian_cities_admin_delete_readonly_enabled: bool = sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_DELETE_READONLY_ENABLED
+        sage_iranian_cities_admin_change_readonly_enabled: bool = sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_CHANGE_READONLY_ENABLED
+        
         return {
-            "ADMIN_CAN_ADD": sage_iranian_cities_settings.ADMIN_CAN_ADD,
-            "ADMIN_CAN_DELETE": sage_iranian_cities_settings.ADMIN_CAN_DELETE,
-            "ADMIN_CAN_CHANGE": sage_iranian_cities_settings.ADMIN_CAN_CHANGE,
+            "IRANIAN_CITIES_ADMIN_ADD_READONLY_ENABLED": sage_iranian_cities_admin_add_readonly_enabled,
+            "IRANIAN_CITIES_ADMIN_DELETE_READONLY_ENABLED": sage_iranian_cities_admin_delete_readonly_enabled,
+            "IRANIAN_CITIES_ADMIN_CHANGE_READONLY_ENABLED": sage_iranian_cities_admin_change_readonly_enabled,
         }
 
 
