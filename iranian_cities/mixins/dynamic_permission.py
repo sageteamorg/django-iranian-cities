@@ -9,3 +9,30 @@ class IranianCitiesAdminReadOnlyEnabled:
 
     def has_change_permission(self, request, obj=None):
         return sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_CHANGE_READONLY_ENABLED
+
+
+class DynamicInlineAdmin:
+    def get_dynamic_inlines(self, model):
+        from iranian_cities.admin import (
+            Province, County, District,
+            RuralDistrict,
+            CountyInline, DistrictInline,
+            CityInline, VillageInline
+        )
+
+        """
+        Returns the list of inlines based on the settings.
+        """
+        if sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_INLINE_ENABLED:
+            if model == Province:
+                return [CountyInline]
+            elif model == County:
+                return [DistrictInline]
+            elif model == District:
+                return [CityInline]
+            elif model == RuralDistrict:
+                return [VillageInline]
+        return []
+
+    def get_inlines(self, request, obj=None):
+        return self.get_dynamic_inlines(self.model)
