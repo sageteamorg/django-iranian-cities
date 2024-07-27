@@ -1,17 +1,21 @@
 import os
 import csv
+import logging
 from django.core.management import BaseCommand
 from django.db import transaction, connections
 from iranian_cities import data
 from iranian_cities.models import Province, County, District, City, RuralDistrict, Village
-from typing import List, Dict
+from typing import List, Dict, Tuple, Union
+
+
+logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     """Management command to generate and populate database tables for Iranian cities."""
     
     help = 'Generate all data'
 
-    def add_arguments(self, parser):
+    def add_arguments(self, parser) -> None:
         """Initialize command line arguments (currently none)."""
         pass
 
@@ -26,19 +30,21 @@ class Command(BaseCommand):
             List[Dict[str, str]]: A list of dictionaries representing CSV rows.
         """
         with open(path, encoding='utf-8') as f:
+            logger.debug("Reading CSV file")
             csv_reader = csv.DictReader(f)
             for row in csv_reader:
                 print(row)
             return csv_reader
 
-    def prompt_user(self) -> bool:
+    def prompt_user(self) -> Tuple[bool, str]:
         """
         Prompt the user to decide whether to flush the tables.
 
         Returns:
             bool: True if the tables should be flushed, False otherwise.
         """
-        response = None
+        response: Union[None, str] = None
+        logger.debug("Checking if the database is has data in the database")
         existing_data: Dict[str, bool]  = {
             "Provinces": Province.objects.exists(),
             "Counties": County.objects.exists(),
@@ -83,14 +89,16 @@ class Command(BaseCommand):
         return result, response_by_user
             
 
-    def flush_tables(self):
+    def flush_tables(self) -> None:
         """Delete all records from the relevant tables."""
+        logger.debug("flushing tables starting...")
         Province.objects.all().delete()
         County.objects.all().delete()
         District.objects.all().delete()
         City.objects.all().delete()
         RuralDistrict.objects.all().delete()
         Village.objects.all().delete()
+        logger.debug("tables in database flushed")
         print("All tables have been flushed.")
 
     def generate_province(self, path: str) -> None:
