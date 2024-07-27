@@ -22,7 +22,7 @@ class County(BaseLocation):
         verbose_name=_('Province'),
         related_name='counties',
         help_text=_("The province to which the county belongs."),
-        db_comment=_("Foreign key to the Province model."),
+        db_comment="Foreign key to the Province model.",
         on_delete=models.CASCADE
     )
 
@@ -43,7 +43,7 @@ class District(BaseLocation):
         related_name='districts',
         on_delete=models.CASCADE,
         help_text=_("The province to which the district belongs."),
-        db_comment=_("Foreign key to the Province model.")
+        db_comment="Foreign key to the Province model."
     )
     county = models.ForeignKey(
         County,
@@ -51,7 +51,7 @@ class District(BaseLocation):
         related_name='districts',
         on_delete=models.CASCADE,
         help_text=_("The county to which the district belongs."),
-        db_comment=_("Foreign key to the County model.")
+        db_comment="Foreign key to the County model."
     )
 
     class Meta(BaseLocation.Meta):
@@ -71,7 +71,7 @@ class City(BaseLocation):
         related_name='cities',
         on_delete=models.CASCADE,
         help_text=_("The province to which the city belongs."),
-        db_comment=_("Foreign key to the Province model.")
+        db_comment="Foreign key to the Province model."
     )
     county = models.ForeignKey(
         County,
@@ -79,7 +79,7 @@ class City(BaseLocation):
         related_name='cities',
         on_delete=models.CASCADE,
         help_text=_("The county to which the city belongs."),
-        db_comment=_("Foreign key to the County model.")
+        db_comment="Foreign key to the County model."
     )
     district = models.ForeignKey(
         District,
@@ -87,12 +87,12 @@ class City(BaseLocation):
         related_name='cities',
         on_delete=models.CASCADE,
         help_text=_("The district to which the city belongs."),
-        db_comment=_("Foreign key to the District model.")
+        db_comment="Foreign key to the District model."
     )
     city_type = models.IntegerField(
         verbose_name=_('City Type'),
         help_text=_("The type of city."),
-        db_comment=_("Field to define the type of city.")
+        db_comment="Field to define the type of city."
     )
 
     class Meta(BaseLocation.Meta):
@@ -112,7 +112,7 @@ class RuralDistrict(BaseLocation):
         related_name='rural_districts',
         on_delete=models.CASCADE,
         help_text=_("The province to which the rural district belongs."),
-        db_comment=_("Foreign key to the Province model.")
+        db_comment="Foreign key to the Province model."
     )
     county = models.ForeignKey(
         County,
@@ -120,7 +120,7 @@ class RuralDistrict(BaseLocation):
         related_name='rural_districts',
         on_delete=models.CASCADE,
         help_text=_("The county to which the rural district belongs."),
-        db_comment=_("Foreign key to the County model.")
+        db_comment="Foreign key to the County model."
     )
     district = models.ForeignKey(
         District,
@@ -128,7 +128,7 @@ class RuralDistrict(BaseLocation):
         related_name='rural_districts',
         on_delete=models.CASCADE,
         help_text=_("The district to which the rural district belongs."),
-        db_comment=_("Foreign key to the District model.")
+        db_comment="Foreign key to the District model."
     )
 
     class Meta(BaseLocation.Meta):
@@ -148,7 +148,7 @@ class Village(BaseLocation):
         related_name='villages',
         on_delete=models.CASCADE,
         help_text=_("The province to which the village belongs."),
-        db_comment=_("Foreign key to the Province model.")
+        db_comment="Foreign key to the Province model."
     )
     county = models.ForeignKey(
         County,
@@ -156,7 +156,7 @@ class Village(BaseLocation):
         related_name='villages',
         on_delete=models.CASCADE,
         help_text=_("The county to which the village belongs."),
-        db_comment=_("Foreign key to the County model.")
+        db_comment="Foreign key to the County model."
     )
     district = models.ForeignKey(
         District,
@@ -164,7 +164,7 @@ class Village(BaseLocation):
         related_name='villages',
         on_delete=models.CASCADE,
         help_text=_("The district to which the village belongs."),
-        db_comment=_("Foreign key to the District model.")
+        db_comment="Foreign key to the District model."
     )
     rural_district = models.ForeignKey(
         RuralDistrict,
@@ -172,12 +172,12 @@ class Village(BaseLocation):
         related_name='villages',
         on_delete=models.CASCADE,
         help_text=_("The rural district to which the village belongs."),
-        db_comment=_("Foreign key to the Rural District model.")
+        db_comment="Foreign key to the Rural District model."
     )
     village_type = models.IntegerField(
         verbose_name=_('Village Type'),
         help_text=_("The type of village."),
-        db_comment=_("Field to define the type of village.")
+        db_comment="Field to define the type of village."
     )
 
     class Meta(BaseLocation.Meta):
