@@ -4,7 +4,7 @@ from iranian_cities.models import (
     Province, County, District,
     City, RuralDistrict, Village
 )
-from iranian_cities.mixins.dynamic_permission import DynamicPermissionsMixin
+from iranian_cities.mixins.dynamic_permission import IranianCitiesAdminReadOnlyEnabled
 
 class IranianCitiesAdmin(admin.ModelAdmin):
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
@@ -20,19 +20,19 @@ class IranianCitiesAdmin(admin.ModelAdmin):
         return db_field.formfield(**kwargs)
 
 @admin.register(Province)
-class ProvinceAdmin(DynamicPermissionsMixin, admin.ModelAdmin):
+class ProvinceAdmin(IranianCitiesAdminReadOnlyEnabled, admin.ModelAdmin):
     list_display = ['name', 'code']
     search_fields = ['name', 'code']
 
 @admin.register(County)
-class CountyAdmin(DynamicPermissionsMixin, admin.ModelAdmin):
+class CountyAdmin(IranianCitiesAdminReadOnlyEnabled, admin.ModelAdmin):
     list_display = ['name', 'code', 'province']
     list_filter = ['province']
     search_fields = ['name', 'code', 'province__name']
     raw_id_fields = ['province']
 
 @admin.register(City)
-class CityAdmin(DynamicPermissionsMixin, admin.ModelAdmin):
+class CityAdmin(IranianCitiesAdminReadOnlyEnabled, admin.ModelAdmin):
     list_display = [
         'name', 'code', 'city_type',
         'district', 'county', 'province'
@@ -45,21 +45,21 @@ class CityAdmin(DynamicPermissionsMixin, admin.ModelAdmin):
     raw_id_fields = ['district', 'county', 'province']
 
 @admin.register(District)
-class DistrictAdmin(DynamicPermissionsMixin, admin.ModelAdmin):
+class DistrictAdmin(IranianCitiesAdminReadOnlyEnabled, admin.ModelAdmin):
     list_display = ['name', 'code', 'county', 'province']
     list_filter = ['province']
     search_fields = ['name', 'code', 'county__name', 'province__name']
     raw_id_fields = ['county', 'province']
 
 @admin.register(RuralDistrict)
-class RuralDistrictAdmin(DynamicPermissionsMixin, admin.ModelAdmin):
+class RuralDistrictAdmin(IranianCitiesAdminReadOnlyEnabled, admin.ModelAdmin):
     list_display = ['name', 'code', 'district', 'county', 'province']
     list_filter = ['province']
     search_fields = ['name', 'code', 'district__name', 'county__name', 'province__name']
     raw_id_fields = ['district', 'county', 'province']
 
 @admin.register(Village)
-class VillageAdmin(DynamicPermissionsMixin, admin.ModelAdmin):
+class VillageAdmin(IranianCitiesAdminReadOnlyEnabled, admin.ModelAdmin):
     list_display = [
         'name', 'code', 'village_type',
         'rural_district', 'district', 'county', 'province'

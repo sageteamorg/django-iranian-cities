@@ -1,6 +1,6 @@
 from iranian_cities.conf import sage_iranian_cities_settings
 
-class DynamicPermissionsMixin:
+class IranianCitiesAdminReadOnlyEnabled:
     def has_add_permission(self, request):
         return sage_iranian_cities_settings.ADMIN_CAN_ADD
 

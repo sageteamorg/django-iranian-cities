@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
+from iranian_cities.exc import IranianCitiesConfigurationError
 from iranian_cities.constants import DEFAULT_SETTINGS
 
 class SageIranianCitiesSettings:
@@ -8,7 +8,7 @@ class SageIranianCitiesSettings:
         for setting, default in DEFAULT_SETTINGS.items():
             value = getattr(settings, setting, default)
             if not isinstance(value, bool):
-                raise ImproperlyConfigured(
+                raise IranianCitiesConfigurationError(
                     f"Setting '{setting}' must be of type boolean."
                 )
             self._settings[setting] = value
