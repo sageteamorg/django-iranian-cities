@@ -55,7 +55,7 @@ def check_iranian_cities_config(app_configs: Dict[str, Any], **kwargs: Any) -> L
 
 
     def check_missing_configs(settings: Dict[str, Any]) -> None:
-        missing: List[str] = [key for key, value in settings.items() if not value]
+        missing: List[str] = [key for key, value in settings.items() if value == None]
         if missing:
             raise IranianCitiesConfigurationError(
                 f"Iranian Cities configuration settings are missing: {', '.join(missing)}."
