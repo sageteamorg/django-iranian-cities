@@ -38,6 +38,7 @@ class Command(BaseCommand):
         Returns:
             bool: True if the tables should be flushed, False otherwise.
         """
+        response = None
         existing_data: Dict[str, bool]  = {
             "Provinces": Province.objects.exists(),
             "Counties": County.objects.exists(),
@@ -58,6 +59,7 @@ class Command(BaseCommand):
                     if response not in ['yes', 'no']:
                         print("Invalid response. Please type 'yes' or 'no'.")
                     elif response == 'yes':
+                        state = "flush"
                         self.flush_tables()
                         break
                     else:
@@ -67,12 +69,18 @@ class Command(BaseCommand):
                         break
 
                 except KeyboardInterrupt:
+                    state = "cancel"
                     self.stdout.write(
                         self.style.ERROR('Operation interrupted by user. No changes were made to the database.')
                     )
                     break
-            result = True if response == 'yes' else False
-            return result
+            result = True if response == 'yes' or state == "flush" else False
+            response_by_user = "cancel" if response == 'no' or state == "cancel" else "yes"
+            return result, response_by_user
+    
+        result = False
+        response_by_user = "no"
+        return result, response_by_user
             
 
     def flush_tables(self):
@@ -222,8 +230,8 @@ class Command(BaseCommand):
             *args: Variable length argument list.
             **options: Arbitrary keyword arguments.
         """
-        result = self.prompt_user()
-        if not result:
+        result, response = self.prompt_user()
+        if not result and response == "cancel":
             return
         province_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'province.csv')
         county_data_path = os.path.abspath(data.__file__).replace('__init__.py', 'county.csv')
