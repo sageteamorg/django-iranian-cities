@@ -1,0 +1,206 @@
+[tool.poetry]
+name = "django-iranian-cities"
+version = "2.0.0"
+description = "Iranian cities support for Django"
+authors = ["Sepehr Akbarzadeh <sepehr@sageteam.org>"]
+license = "GNU"
+keywords = ["django", "iranian", "cities"]
+repository = "https://github.com/sageteamorg/django-iranian-cities"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+django = ">=3.2,<6.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.3.2"
+pytest-django = "^4.8.0"
+pytest-cov = "^5.0.0"
+django-stubs = "^5.0.4"
+black = "^24.4.2"
+isort = "^5.13.2"
+ruff = "^0.5.5"
+pre-commit = "^3.5.0"
+mypy = "^1.11.1"
+sphinx-rtd-theme = "^2.0.0"
+tox = "^4.16.0"
+pylint = "^3.2.6"
+docformatter = "^1.7.5"
+commitizen = "^3.28.0"
+
+
+[tool.pytest.ini_options]
+addopts = "--cov=. --cov-report=term-missing --cov-report=html"
+DJANGO_SETTINGS_MODULE = "kernel.settings"
+python_files = ["tests.py", "test_*.py"]
+testpaths = ["tests"]
+norecursedirs = [
+    "migrations",
+    "static",
+    "media",
+    "node_modules",
+    "env",
+    "venv",
+    ".venv",
+    "dist",
+    "build",
+    "kernel"
+]
+
+[tool.coverage.run]
+omit = [
+    "*/migrations/*",
+    "kernel/*",
+    "*/apps.py",
+    "manage.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self\\.debug",
+    "raise AssertionError",
+    "if 0:",
+    "if __name__ == .__main__.:"
+]
+
+[tool.ruff]
+line-length = 88
+exclude = [
+    "venv/*",
+    ".venv/*",
+    "build/*",
+    "dist/*",
+    ".git/*",
+    "__pycache__/*",
+    "*.egg-info/*",
+    ".mypy_cache/*",
+    ".pytest_cache/*",
+    "migrations/*"
+]
+
+[tool.ruff.lint]
+ignore = [
+    "E203",  # Ignore whitespace before ':', ';', or '#'
+    "E501"   # Ignore line length issues (lines longer than 88 characters)
+]
+select = [
+    "E",     # Select all PEP8 error codes
+    "W",     # Select all warnings
+    "F",     # Select all potential runtime errors
+    "C90"    # Select custom or extended error code C90
+]
+
+[tool.mypy]
+mypy_path = "stubs"
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+explicit_package_bases = true
+exclude = '''
+^docs/source/conf.py|
+^build/|
+^tests/|
+^stubs/|
+^kernel/
+'''
+
+[tool.black]
+line-length = 88
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+  | migrations
+  | venv
+  | env
+  | __pycache__
+  | static
+  | media
+  | node_modules
+  | env
+  | kernel
+  | \.mypy_cache
+  | \.pytest_cache
+  | .*\.egg-info
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+skip = [
+    "venv",
+    ".venv",
+    "build",
+    "dist",
+    ".git",
+    "__pycache__",
+    "*.egg-info",
+    ".mypy_cache",
+    ".pytest_cache",
+    "migrations",
+    "static",
+    "media",
+    "node_modules",
+    "env",
+    "kernel"
+]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.1.0"
+
+[tool.commitizen.settings]
+increment_types = ["feat", "fix"]
+
+[tool.pylint]
+disable = [
+    "C0114",  # Missing module docstring
+    "C0115",  # Missing class docstring
+    "C0116",  # Missing function or method docstring
+    "E1101",  # Instance of 'Foo' has no 'bar' member (Django dynamic attributes)
+    "W0212",  # Access to a protected member _foo of a client class
+    "C0330",  # Wrong hanging indentation before block (conflicts with Black)
+]
+max-line-length = 88
+ignore = [
+    "migrations/*",
+    "venv/*",
+    "build/*",
+    "dist/*",
+    ".git/*",
+    "__pycache__/*",
+    "*.egg-info/*",
+    ".mypy_cache/*",
+    ".pytest_cache/*"
+]
+load-plugins = [
+    "pylint_django",
+    "pylint.extensions.docparams",
+]
+django-settings-module = "myproject.settings"
+good-names = [
+    "qs",  # QuerySet abbreviation
+    "pk",  # Primary key abbreviation
+    "id",  # Identifier
+]
+suggestion-mode = true
+const-rgx = "([A-Z_][A-Z0-9_]*)|(__.*__)"
+attr-rgx = "[a-z_][a-z0-9_]{2,30}$"
+variable-rgx = "[a-z_][a-z0-9_]{2,30}$"
+argument-rgx = "[a-z_][a-z0-9_]{2,30}$"
+argument-name-hint = [
+    "cls",  # class method first argument
+    "self",  # instance method first argument
+]
+method-rgx = "[a-z_][a-z0-9_]{2,30}$"
+function-rgx = "[a-z_][a-z0-9_]{2,30}$"
+class-rgx = "[A-Z_][a-zA-Z0-9]+$"
+module-rgx = "(([a-z_][a-z0-9_]*)|(__.*__))$"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
