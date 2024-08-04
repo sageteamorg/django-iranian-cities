@@ -138,3 +138,5 @@ uwsgi.ini
 .env.prod
 nginx.conf
 test_app/
+myenv/
+myenv3_8/

@@ -1,3 +1,0 @@
-Django>=3.2.3
-setuptools>=56.2.0
-autopep8>=1.5.7
