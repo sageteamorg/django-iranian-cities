@@ -1,11 +1,9 @@
 from django.contrib import admin
 from django.contrib.admin import widgets
-from django.contrib.admin.options import InlineModelAdmin
 from django.db.models import ForeignKey
 from django.http import HttpRequest
 from typing import Any, Optional
 from iranian_cities.mixins.dynamic_permission import IranianCitiesAdminReadOnlyEnabled, DynamicInlineAdmin
-from iranian_cities.conf import sage_iranian_cities_settings
 from iranian_cities.mixins.base_inline import BaseTabularInline
 from iranian_cities.models import (
     Province, County, District,

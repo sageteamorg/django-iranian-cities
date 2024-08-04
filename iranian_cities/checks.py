@@ -47,7 +47,7 @@ def check_iranian_cities_config(app_configs: Dict[str, Any], **kwargs: Any) -> L
         sage_iranian_cities_admin_delete_readonly_enabled: bool = sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_DELETE_READONLY_ENABLED
         sage_iranian_cities_admin_change_readonly_enabled: bool = sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_CHANGE_READONLY_ENABLED
         sage_iranian_cities_admin_inline_enabled: bool = sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_INLINE_ENABLED
-        
+
         return {
             "IRANIAN_CITIES_ADMIN_ADD_READONLY_ENABLED": sage_iranian_cities_admin_add_readonly_enabled,
             "IRANIAN_CITIES_ADMIN_DELETE_READONLY_ENABLED": sage_iranian_cities_admin_delete_readonly_enabled,
@@ -75,5 +75,5 @@ def check_iranian_cities_config(app_configs: Dict[str, Any], **kwargs: Any) -> L
                 id=id,
             )
         )
-    
+
     return errors

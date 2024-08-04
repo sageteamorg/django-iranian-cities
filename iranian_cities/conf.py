@@ -7,7 +7,7 @@ class SageIranianCitiesSettings:
     _settings: Dict[str, bool]
 
     def __init__(self):
-        
+
         self._settings = {}
         for setting, default in DEFAULT_SETTINGS.items():
             value: Any = getattr(settings, setting, default)
