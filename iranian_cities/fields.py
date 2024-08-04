@@ -1,15 +1,13 @@
+from typing import Any
 from django.db import models
-
-from iranian_cities.models import (
-    Province, County, District,
-    City, RuralDistrict, Village
-)
-
+from iranian_cities.models import Province, County, District, City, RuralDistrict, Village
 
 class ProvinceField(models.ForeignKey):
-    description = 'Iranian Province'
+    """A ForeignKey field for Iranian Provinces."""
 
-    def __init__(self, *args, **kwargs):
+    description: str = 'Iranian Province'
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         defaults = {
             'to': Province,
             'on_delete': models.CASCADE
@@ -18,9 +16,11 @@ class ProvinceField(models.ForeignKey):
         super().__init__(*args, **defaults)
 
 class CountyField(models.ForeignKey):
-    description = 'Iranian County'
+    """A ForeignKey field for Iranian Counties."""
 
-    def __init__(self, *args, **kwargs):
+    description: str = 'Iranian County'
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         defaults = {
             'to': County,
             'on_delete': models.CASCADE
@@ -29,9 +29,11 @@ class CountyField(models.ForeignKey):
         super().__init__(*args, **defaults)
 
 class DistrictField(models.ForeignKey):
-    description = 'Iranian District'
+    """A ForeignKey field for Iranian Districts."""
 
-    def __init__(self, *args, **kwargs):
+    description: str = 'Iranian District'
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         defaults = {
             'to': District,
             'on_delete': models.CASCADE
@@ -40,9 +42,11 @@ class DistrictField(models.ForeignKey):
         super().__init__(*args, **defaults)
 
 class CityField(models.ForeignKey):
-    description = 'Iranian City'
+    """A ForeignKey field for Iranian Cities."""
 
-    def __init__(self, *args, **kwargs):
+    description: str = 'Iranian City'
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         defaults = {
             'to': City,
             'on_delete': models.CASCADE
@@ -51,9 +55,11 @@ class CityField(models.ForeignKey):
         super().__init__(*args, **defaults)
 
 class RuralDistrictField(models.ForeignKey):
-    description = 'Iranian RuralDistrict'
+    """A ForeignKey field for Iranian Rural Districts."""
 
-    def __init__(self, *args, **kwargs):
+    description: str = 'Iranian Rural District'
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         defaults = {
             'to': RuralDistrict,
             'on_delete': models.CASCADE
@@ -62,9 +68,11 @@ class RuralDistrictField(models.ForeignKey):
         super().__init__(*args, **defaults)
 
 class VillageField(models.ForeignKey):
-    description = 'Iranian Village'
+    """A ForeignKey field for Iranian Villages."""
 
-    def __init__(self, *args, **kwargs):
+    description: str = 'Iranian Village'
+
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         defaults = {
             'to': Village,
             'on_delete': models.CASCADE

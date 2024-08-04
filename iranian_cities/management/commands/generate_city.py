@@ -2,7 +2,6 @@ import os
 import csv
 import logging
 from django.core.management import BaseCommand
-from django.db import transaction, connections
 from iranian_cities import data
 from iranian_cities.models import Province, County, District, City, RuralDistrict, Village
 from typing import List, Dict, Tuple, Union
@@ -12,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
     """Management command to generate and populate database tables for Iranian cities."""
-    
+
     help = 'Generate all data'
 
     def add_arguments(self, parser) -> None:
@@ -61,7 +60,7 @@ class Command(BaseCommand):
                         f"Your database currently has objects for the following tables: {data_present}. "
                         "\nDo you want to flush the tables? Type 'yes' to flush or 'no' to cancel the operation: "
                     ).strip().lower()
-                    
+
                     if response not in ['yes', 'no']:
                         print("Invalid response. Please type 'yes' or 'no'.")
                     elif response == 'yes':
@@ -83,11 +82,11 @@ class Command(BaseCommand):
             result = True if response == 'yes' or state == "flush" else False
             response_by_user = "cancel" if response == 'no' or state == "cancel" else "yes"
             return result, response_by_user
-    
+
         result = False
         response_by_user = "no"
         return result, response_by_user
-            
+
 
     def flush_tables(self) -> None:
         """Delete all records from the relevant tables."""
