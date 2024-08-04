@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "django-iranian-cities"
+version = "2.0.0"
+description = "Iranian cities support for Django"
+authors = ["Sepehr Akbarzadeh <sepehr@sageteam.org>"]
+license = "GNU"
+keywords = ["django", "iranian", "cities"]
+repository = "https://github.com/sageteamorg/django-iranian-cities"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+django = ">=3.2,<6.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.3.2"
+pytest-django = "^4.8.0"
+pytest-cov = "^5.0.0"
+
+[tool.pytest.ini_options]
+addopts = "--cov=. --cov-report=term-missing"
+DJANGO_SETTINGS_MODULE = "kernel.settings"
+python_files = ["tests.py", "test_*.py"]
+testpaths = ["tests"]
+norecursedirs = [
+    "migrations",
+    "static",
+    "media",
+    "node_modules",
+    "env",
+    "venv",
+    ".venv",
+    "dist",
+    "build",
+    "kernel"
+]
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
