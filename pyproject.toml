@@ -33,6 +33,9 @@ addopts = "--cov=. --cov-report=term-missing --cov-report=html"
 DJANGO_SETTINGS_MODULE = "kernel.settings"
 python_files = ["tests.py", "test_*.py"]
 testpaths = ["tests"]
+markers = [
+    "admin: mark test to check admin tests",
+]
 norecursedirs = [
     "migrations",
     "static",
