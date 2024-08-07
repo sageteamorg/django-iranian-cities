@@ -29,12 +29,15 @@ commitizen = "^3.28.0"
 
 
 [tool.pytest.ini_options]
-addopts = "--cov=. --cov-report=term-missing --cov-report=html"
+addopts = "--cov --cov-report=term-missing --cov-report=html"
 DJANGO_SETTINGS_MODULE = "kernel.settings"
 python_files = ["tests.py", "test_*.py"]
 testpaths = ["tests"]
 markers = [
     "admin: mark test to check admin tests",
+    "models_str_method: mark test to check __str__ methods of models",
+    "models_code_field: mark test to check code fields in models",
+    "models_code_field_unique: mark test to check code fields are unique",
 ]
 norecursedirs = [
     "migrations",

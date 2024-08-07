@@ -16,7 +16,7 @@ class BaseLocation(Model):
         verbose_name=_("Code"),
         help_text=_("The code representing the location."),
         db_comment="This field stores the code for the location.",
-        unique=True        
+        unique=True
     )
 
 
