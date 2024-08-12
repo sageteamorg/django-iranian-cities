@@ -38,6 +38,8 @@ markers = [
     "models_str_method: mark test to check __str__ methods of models",
     "models_code_field: mark test to check code fields in models",
     "models_code_field_unique: mark test to check code fields are unique",
+    "settings_admin_permission: mark test to check admin permissions",
+    "settings_checks: mark test to check settings configuration",
 ]
 norecursedirs = [
     "migrations",
