@@ -1,27 +1,38 @@
+import sys
+from typing import Dict, List, Optional, Type
+
+import pytest
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
 from django.http import HttpRequest
-from tests.constants import PYTHON_VERSION, PYTHON_VERSION_REASON
-from iranian_cities.conf import sage_iranian_cities_settings
-from typing import List, Type, Dict, Optional
-from iranian_cities.mixins.dynamic_permission import IranianCitiesAdminReadOnlyEnabled, DynamicInlineAdmin
-from iranian_cities.admin import (
-    Province, County, District, RuralDistrict,
-    CityInline, VillageInline, CountyInline, DistrictInline
-)
-import pytest
-import sys
 
+from iranian_cities.admin import (
+    CityInline,
+    County,
+    CountyInline,
+    District,
+    DistrictInline,
+    Province,
+    RuralDistrict,
+    VillageInline,
+)
+from iranian_cities.conf import sage_iranian_cities_settings
+from iranian_cities.mixins.dynamic_permission import (
+    DynamicInlineAdmin,
+    IranianCitiesAdminReadOnlyEnabled,
+)
+from tests.constants import PYTHON_VERSION, PYTHON_VERSION_REASON
 
 pytestmark = [
     pytest.mark.django_db,
     pytest.mark.settings_admin_permission,
-    pytest.mark.skipif(sys.version_info < PYTHON_VERSION, reason=PYTHON_VERSION_REASON)
+    pytest.mark.skipif(sys.version_info < PYTHON_VERSION, reason=PYTHON_VERSION_REASON),
 ]
 
 
 class TestAdminPermission:
     """Test IranianCities Admin Permission."""
+
     def test_iranian_cities_admin_permissions(self) -> None:
         """
         Test the IranianCitiesAdminReadOnlyEnabled mixin to verify that permission
@@ -39,7 +50,9 @@ class TestAdminPermission:
 
         # Set configuration settings
         sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_ADD_READONLY_ENABLED = True
-        sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_DELETE_READONLY_ENABLED = False
+        sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_DELETE_READONLY_ENABLED = (
+            False
+        )
         sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_CHANGE_READONLY_ENABLED = True
 
         assert settings_instance.has_add_permission(request) is True
@@ -62,7 +75,7 @@ class TestAdminPermission:
 
         # Mock the models and inlines
         sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_INLINE_ENABLED = True
-        
+
         assert settings_instance.get_dynamic_inlines(Province) == [CountyInline]
         assert settings_instance.get_dynamic_inlines(County) == [DistrictInline]
         assert settings_instance.get_dynamic_inlines(District) == [CityInline]
@@ -87,10 +100,14 @@ class TestAdminPermission:
         """
 
         request = HttpRequest()
-        request.user = User.objects.create_superuser('admin', 'admin@example.com', 'password')
+        request.user = User.objects.create_superuser(
+            "admin", "admin@example.com", "password"
+        )
 
         class CustomModelAdmin(DynamicInlineAdmin):
-            def __init__(self, model: Optional[Type], admin_site: Optional[AdminSite]) -> None:
+            def __init__(
+                self, model: Optional[Type], admin_site: Optional[AdminSite]
+            ) -> None:
                 self.model = model
                 self.admin_site = admin_site
 
@@ -98,12 +115,12 @@ class TestAdminPermission:
             Province: [CountyInline],
             County: [DistrictInline],
             District: [CityInline],
-            RuralDistrict: [VillageInline]
+            RuralDistrict: [VillageInline],
         }
 
         for model, expected_inlines in model_admins.items():
             model_admin = CustomModelAdmin(model=model, admin_site=AdminSite())
-            
+
             inlines = model_admin.get_inlines(request)
-            
+
             assert inlines == expected_inlines

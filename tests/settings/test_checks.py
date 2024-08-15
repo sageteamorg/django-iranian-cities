@@ -1,18 +1,22 @@
-from typing import List
-from iranian_cities.checks import check_iranian_cities_config
-from iranian_cities.exc import IranianCitiesConfigurationError
-from iranian_cities.conf import SageIranianCitiesSettings
-from tests.constants import PYTHON_VERSION, PYTHON_VERSION_REASON
-import pytest
 import sys
+from typing import List
+
+import pytest
+
+from iranian_cities.checks import check_iranian_cities_config
+from iranian_cities.conf import SageIranianCitiesSettings
+from iranian_cities.exc import IranianCitiesConfigurationError
+from tests.constants import PYTHON_VERSION, PYTHON_VERSION_REASON
 
 pytestmark = [
     pytest.mark.settings_checks,
-    pytest.mark.skipif(sys.version_info < PYTHON_VERSION, reason=PYTHON_VERSION_REASON)
+    pytest.mark.skipif(sys.version_info < PYTHON_VERSION, reason=PYTHON_VERSION_REASON),
 ]
+
 
 class TestIranianCitiesConfig:
     """Test IranianCities configuration and settings."""
+
     def test_check_iranian_cities_config_correct_settings(self, settings) -> None:
         """
         Test the Iranian Cities configuration checker with correct settings.
@@ -99,7 +103,7 @@ class TestIranianCitiesConfig:
 
         error_message: str = str(excinfo.value)
 
-        assert excinfo.value.code == "E4001"  
-        assert excinfo.value.section_code == "CFG" 
+        assert excinfo.value.code == "E4001"
+        assert excinfo.value.section_code == "CFG"
 
         assert "must be of type boolean" in error_message

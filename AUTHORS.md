@@ -1,5 +1,5 @@
 ## django-iranian-cities was originally created in May 2021
-#### Here is an inevitably incomplete list of MUCH-APPRECIATED CONTRIBUTORS 
+#### Here is an inevitably incomplete list of MUCH-APPRECIATED CONTRIBUTORS
 
 | Name                          | Role                     | Status                     | Email                      |
 | ----------------------------- |:------------------------:|:--------------------------:|:--------------------------:|

@@ -26,10 +26,17 @@ class SageError(Exception):
     default_code: str = "E5000"
     section_code: str = "SAGE"
 
-    def __init__(self, detail: Optional[str] = None, code: Optional[str] = None, section_code: Optional[str] = None):
+    def __init__(
+        self,
+        detail: Optional[str] = None,
+        code: Optional[str] = None,
+        section_code: Optional[str] = None,
+    ):
         self.detail: str = detail if detail is not None else self.default_detail
         self.code: str = code if code is not None else self.default_code
-        self.section_code: str = section_code if section_code is not None else self.section_code
+        self.section_code: str = (
+            section_code if section_code is not None else self.section_code
+        )
         self.error_id: str = str(uuid.uuid4())
 
     def __str__(self) -> str:
@@ -69,6 +76,8 @@ class IranianCitiesConfigurationError(IranianCitiesError):
     """
 
     status_code: int = 400
-    default_detail: str = "Invalid Sage Irianian Cities configuration. Please check your settings."
+    default_detail: str = (
+        "Invalid Sage Irianian Cities configuration. Please check your settings."
+    )
     default_code: str = "E4001"
     section_code: str = "CFG"

@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("iranian_cities", "0008_alter_city_options_alter_county_options_and_more"),
     ]

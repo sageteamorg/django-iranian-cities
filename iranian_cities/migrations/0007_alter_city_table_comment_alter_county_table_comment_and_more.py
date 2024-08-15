@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("iranian_cities", "0006_alter_city_province_alter_county_province"),
     ]
