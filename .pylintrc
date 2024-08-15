@@ -1,0 +1,13 @@
+[MASTER]
+ignore=tests,docs,build,stubs
+persistent=yes
+ignore-patterns=^tests/.*, ^docs/.*, ^build/.*, ^stubs/.*
+
+[MESSAGES CONTROL]
+disable=C0114,C0115,C0116,R0903
+
+[FORMAT]
+max-line-length=88
+
+[DESIGN]
+max-args=5
