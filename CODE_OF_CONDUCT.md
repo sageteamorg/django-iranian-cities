@@ -1,26 +1,166 @@
-# Code Of Conduct
+## Contribution Guidelines
 
-**Like the technical community as a whole, the Sage team and community is made up of a mixture of professionals, working on every aspect of the mission - including mentorship, teaching, and connecting people.**
+Thank you for your interest in contributing to our package! This document outlines the tools and steps to follow to ensure a smooth and consistent workflow.
 
-* Diversity is one of our huge strengths, but it can also lead to communication issues and unhappiness. To that end, we have a few ground rules that we ask people to adhere to. This code applies equally to founders, mentors and those seeking help and guidance.
+## Contribution Workflow
 
-* This isn’t an exhaustive list of things that you can’t do. Rather, take it in the spirit in which it’s intended - a guide to make it easier to enrich all of us and the technical communities in which we participate.
+1. **Fork and Clone**: Fork the repository and clone it to your local machine.
+    ```bash
+    git clone https://github.com/sageteamorg/django-iranian-cities.git
+    cd django-iranian-cities
+    ```
 
-* if you believe someone is violating the code of conduct, we ask that you report it by emailing mail@sageteam.com
+2. **Create a Branch**: Create a new branch for your feature or bugfix.
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
 
-1. **Be friendly and patient**.
-2. **Be welcoming**. We strive to be a community that welcomes and supports people of all backgrounds and identities. This includes, but is not limited to members of any race, ethnicity, culture, national origin, colour, immigration status, social and economic class, educational level, sex, sexual orientation, gender identity and expression, age, size, family status, political belief, religion, and mental and physical ability.
-3. **Be considerate**. Your work will be used by other people, and you in turn will depend on the work of others. Any decision you take will affect users and colleagues, and you should take those consequences into account when making decisions. Remember that we're a world-wide community, so you might not be communicating in someone else's primary language.
-4. **Be respectful**. Not all of us will agree all the time, but disagreement is no excuse for poor behavior and poor manners. We might all experience some frustration now and then, but we cannot allow that frustration to turn into a personal attack. It’s important to remember that a community where people feel uncomfortable or threatened is not a productive one. Members of the Django community should be respectful when dealing with other members as well as with people outside the Django community.
-5. **Be careful in the words that you choose**. We are a community of professionals, and we conduct ourselves professionally. Be kind to others. Do not insult or put down other participants. Harassment and other exclusionary behavior aren't acceptable. This includes, but is not limited to:
+3. **Install Dependencies**: Use Poetry to install dependencies.
+    ```bash
+    poetry install
+    ```
 
-- Violent threats or language directed against another person.
-- Discriminatory jokes and language.
-- sexually explicit or violent material.
-- Posting (or threatening to post) other people's personally identifying information ("doxing").
-- Personal insults, especially those using racist or sexist terms.
-- Unwelcome sexual attention.
-- Advocating for, or encouraging, any of the above behavior.
-- Repeated harassment of others. In general, if someone asks you to stop, then stop.
+4. **Write Code and Tests**: Make your changes and write tests for your new code.
 
-6. **When we disagree, try to understand why**. Disagreements, both social and technical, happen all the time and Django is no exception. It is important that we resolve disagreements and differing views constructively. Remember that we’re different. The strength of Django comes from its varied community, people from a wide range of backgrounds. Different people have different perspectives on issues. Being unable to understand why someone holds a viewpoint doesn’t mean that they’re wrong. Don’t forget that it is human to err and blaming each other doesn’t get us anywhere. Instead, focus on helping to resolve issues and learning from mistakes.
+5. **Run Code Quality Checks**: Ensure code quality with pre-commit, Ruff, and Pylint.
+    ```bash
+    ruff check .
+    ruff check --fix
+    ```
+
+6. **Run Tests**: Ensure all tests pass using Poetry.
+    ```bash
+    poetry run pytest
+    ```
+
+7. **Commit Changes**: Use Commitizen to commit your changes.
+    ```bash
+    cz commit
+    ```
+
+8. **Push and Create a PR**: Push your changes and create a pull request.
+    ```bash
+    git push origin feature/your-feature-name
+    ```
+
+9. **Bump Version**: Use Commitizen to bump the version.
+    ```bash
+    cz bump
+    ```
+
+10. **Generate Changelog**: Use Commitizen to generate the changelog.
+    ```bash
+    cz changelog
+    ```
+
+11. **Export Dependencies**: Export dependencies for development and production.
+    ```bash
+    poetry export -f requirements.txt --output packages/requirements.txt --without-hashes
+    poetry export -f requirements.txt --dev --output packages/requirements-dev.txt --without-hashes
+    ```
+
+## Commitizen Message Rule
+
+Commitizen follows the Conventional Commits specification. The commit message should be structured as follows:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+Here are 10 examples of commit messages following the Commitizen Conventional Commits specification:
+
+### 1. Initialization of core
+```
+feat(core): initialize the core module
+
+- Set up the core structure
+- Added initial configurations and settings
+- Created basic utility functions
+```
+
+### 2. Release with build and tag version
+```
+chore(release): build and tag version 1.0.0
+
+- Built the project for production
+- Created a new tag for version 1.0.0
+- Updated changelog with release notes
+```
+
+### 3. Adding a new feature
+```
+feat(auth): add user authentication
+
+- Implemented user login and registration
+- Added JWT token generation and validation
+- Created middleware for protected routes
+```
+
+### 4. Fixing a bug
+```
+fix(api): resolve issue with data fetching
+
+- Fixed bug causing incorrect data responses
+- Improved error handling in API calls
+- Added tests for the fixed bug
+```
+
+### 5. Update a doc (Sphinx)
+```
+docs(sphinx): update API documentation
+
+- Updated the Sphinx documentation for API changes
+- Added examples for new endpoints
+- Fixed typos and formatting issues
+```
+
+### 6. Update dependencies (packages)
+```
+chore(deps): update project dependencies
+
+- Updated all outdated npm packages
+- Resolved compatibility issues with new package versions
+- Ran tests to ensure no breaking changes
+```
+
+### 7. Update version for build and publish
+```
+chore(version): update version to 2.1.0 for build and publish
+
+- Incremented version number to 2.1.0
+- Updated package.json with the new version
+- Prepared for publishing the new build
+```
+
+### 8. Adding unit tests
+```
+test(auth): add unit tests for authentication module
+
+- Created tests for login functionality
+- Added tests for registration validation
+- Ensured 100% coverage for auth module
+```
+
+### 9. Refactoring codebase
+```
+refactor(core): improve code structure and readability
+
+- Refactored core module to enhance readability
+- Extracted utility functions into separate files
+- Updated documentation to reflect code changes
+```
+
+### 10. Improving performance
+```
+perf(parser): enhance parsing speed
+
+- Optimized parsing algorithm for better performance
+- Reduced the time complexity of the parsing function
+- Added benchmarks to track performance improvements
+```
+
+These examples cover various types of commits such as feature additions, bug fixes, documentation updates, dependency updates, versioning, testing, refactoring, and performance improvements.
