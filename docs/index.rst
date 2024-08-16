@@ -39,8 +39,8 @@ This app supports the following combinations of Django and Python:
 ==========  =======================
   Django      Python
 ==========  =======================
-3.2         3.6, 3.7, 3.8, 3.9, 3.10
-4.1         3.8, 3.9, 3.10
+4.2         3.8, 3.9, 3.10, 3.11, 3.12
+5.0         3.10, 3.11, 3.12
 ==========  =======================
 
 Documentation
@@ -51,8 +51,10 @@ Documentation
 
    quick_start
    usage
+   settings
+   pytest_guide
+   contributing
    rules
-   team
 
 Issues
 ------

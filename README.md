@@ -15,80 +15,96 @@ The [django-iranian-cities](https://github.com/sageteam-org/django-iranian-citie
 - [Project Detail](#project-detail)
 - [Get Started](#getting-started)
 - [Usage](#usage)
-- [Admin](#admin)
+- [Settings](#settings)
 - [Git Rules](#git-rules)
 
 ## Project Detail
 
-- Language: Python > 3.6
-- Framework: Django > 3.2
+- Language: Python > 3.8
+- Framework: Django > 4.2
 
 ## Getting Started
 
-First you have to install package using pip:
+1. **Install the package**:
 
-```shell
-$ pip install django-iranian-cities
-```
+    ```shell
+    $ pip install django-iranian-cities
+    ```
 
-Then you should add `iranian_cities` to INSTALLED_APPS:
+2. **Add `iranian_cities` to INSTALLED_APPS in your Django settings**:
 
-```python
-INSTALLED_APPS = [
-    ...
-    'iranian_cities',
-    ...
-]
-```
+    ```python
+    INSTALLED_APPS = [
+        ...
+        'iranian_cities',
+        ...
+    ]
+    ```
 
-Now you can migrate to apply model changes:
+3. **Run migrations to apply model changes**:
 
-```shell
-$ python manage.py migrate
-```
+    ```shell
+    $ python manage.py migrate
+    ```
 
-For generating all data you can run this command:
+4. **Generate Data**:
+To populate the database with Iranian cities data, use the provided management command. This command will:
 
-```shell
-$ python manage.py generate_city
-```
+   - Check if there is existing data in the tables.
+   - Prompt you to confirm if you want to **flush** the tables if they already contain data.
+   - Read **CSV** files and populate the `Province`, `County`, `District`, `City`, `RuralDistrict`, and `Village` tables with data.
 
-NOTE: you should run this command once (if you want to run again flush db or delete all objects in iranian_cities app)
+    ```shell
+    $ python manage.py generate_city
+    ```
+    If **tables** contain data, you will be prompted to either **flush** them or **cancel** the operation.
 
 ## Usage
 
-You can use field like this:
+You can use the provided fields and admin mixin in your Django models:
 
+- **Fields**:
+    ```python
+    from django.db import models
+    from iranian_cities.fields import ProvinceField
+
+    class TestModel(models.Model):
+        province = ProvinceField()
+
+    ```
+    **list of fields**:
+    - ProvinceField
+    - CountyField
+    - DistrictField
+    - CityField
+    - RuralDistrictField
+    - VillageField
+
+- **Admin**:
+    ```python
+    from django.contrib import admin
+    from iranian_cities.admin import IranianCitiesAdmin
+    from test_app.models import TestModel
+
+    @admin.register(TestModel)
+    class TestModelAdmin(IranianCitiesAdmin):
+        pass
+    ```
+
+## Settings
+The package uses several settings for configuration. Make sure the following settings are defined in your `settings.py` file:
 ```python
-from django.db import models
-from iranian_cities.fields import ProvinceField
-
-class TestModel(models.Model):
-    province = ProvinceField()
-
-list of fields:
-
-- ProvinceField
-- CountyField
-- DistrictField
-- CityField
-- RuralDistrictField
-- VillageField
-
-
-## Admin
-
-You can also use admin mixin class:
-
-```python
-from django.contrib import admin
-from iranian_cities.admin import IranianCitiesAdmin
-from test_app.models import TestModel
-
-@admin.register(TestModel)
-class TestModelAdmin(IranianCitiesAdmin):
-    pass
+IRANIAN_CITIES_ADMIN_ADD_READONLY_ENABLED = True
+IRANIAN_CITIES_ADMIN_DELETE_READONLY_ENABLED = True
+IRANIAN_CITIES_ADMIN_CHANGE_READONLY_ENABLED = True
+IRANIAN_CITIES_ADMIN_INLINE_ENABLED = False
 ```
+Explanation of **settings**:
+
+- `IRANIAN_CITIES_ADMIN_ADD_READONLY_ENABLED`: When set to `True`, users can add new entries to the admin interface. Set to `False` to disable adding entries.
+- `IRANIAN_CITIES_ADMIN_DELETE_READONLY_ENABLED`: When set to `True`, users can delete existing entries in the admin interface. Set to `False` to disable deleting entries.
+- `IRANIAN_CITIES_ADMIN_CHANGE_READONLY_ENABLED`: When set to `True`, users can change existing entries in the admin interface. Set to `False` to disable changes.
+- `IRANIAN_CITIES_ADMIN_INLINE_ENABLED`: When set to `True`, inline admin forms are enabled based on the model type. Set to `False` to disable inline forms.
 
 ![Admin](https://github.com/sageteam-org/django-iranian-cities/blob/master/docs/images/admin.jpg?raw=true)
 
