@@ -22,6 +22,8 @@ jobs:
         coverage run -m pytest
     - name: Generate coverage report
       run: coverage xml
+    - name: Run Tox tests
+      run: tox
     - name: Upload coverage to Codecov
       run: codecov
       env:
