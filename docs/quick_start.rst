@@ -1,35 +1,37 @@
 Quick Start
 ===========
 
-Getting Started
----------------
+1. **Install the package**:
 
-First you have to install package using pip:
+    .. code-block:: shell
 
-.. code:: shell
+        $ pip install django-iranian-cities
 
-    $ pip install django-iranian-cities
+2. **Add `iranian_cities` to `INSTALLED_APPS` in your Django settings**:
 
-Then you should add `iranian_cities` to INSTALLED_APPS:
+    .. code-block:: python
 
-.. code:: python
+        INSTALLED_APPS = [
+            ...
+            'iranian_cities',
+            ...
+        ]
 
-    INSTALLED_APPS = [
-    ...
-    'iranian_cities',
-    ...
-    ]
+3. **Run migrations to apply model changes**:
 
-Now you can migrate to apply model changes:
+    .. code-block:: shell
 
-.. code:: shell
+        $ python manage.py migrate
 
-    $ python manage.py migrate
+4. **Generate Data**:
+   To populate the database with Iranian cities data, use the provided management command. This command will:
 
-For generating all data you can run this command:
+   - Check if there is existing data in the tables.
+   - Prompt you to confirm if you want to **flush** the tables if they already contain data.
+   - Read **CSV** files and populate the `Province`, `County`, `District`, `City`, `RuralDistrict`, and `Village` tables with data.
 
-.. code:: shell
+    .. code-block:: shell
 
-    $ python manage.py generate_city
+        $ python manage.py generate_city
 
-NOTE: you should run this command once (if you want to run again flush db or delete all objects in iranian_cities app)
+   If **tables** contain data, you will be prompted to either **flush** them or **cancel** the operation.
