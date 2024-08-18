@@ -43,7 +43,6 @@ def check_iranian_cities_config(
     errors: List[Error] = []
 
     def get_iranian_cities_settings() -> Dict[str, Any]:
-
         sage_iranian_cities_admin_add_readonly_enabled: bool = (
             sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_ADD_READONLY_ENABLED
         )
