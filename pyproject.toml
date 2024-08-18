@@ -9,6 +9,11 @@ repository = "https://github.com/sageteamorg/django-iranian-cities"
 packages = [
     {include = "iranian_cities"}
 ]
+
+[tool.poetry.urls]
+"Source Code" = "https://github.com/sageteamorg/django-iranian-cities"
+"Issues" = "https://github.com/sageteamorg/django-iranian-cities/issues"
+
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
 django = ">=3.2,<6.0"
