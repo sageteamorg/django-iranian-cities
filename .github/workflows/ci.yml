@@ -24,6 +24,8 @@ jobs:
       run: coverage xml
     - name: Run Tox tests
       run: tox
+    - name: Run pre-commmit hooks
+      run: tox -e pre-commit
     - name: Upload coverage to Codecov
       run: codecov
       env:
