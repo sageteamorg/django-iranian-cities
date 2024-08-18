@@ -1,7 +1,10 @@
-from django.conf import settings
 from typing import Any, Dict
-from iranian_cities.exc import IranianCitiesConfigurationError
+
+from django.conf import settings
+
 from iranian_cities.constants import DEFAULT_SETTINGS
+from iranian_cities.exc import IranianCitiesConfigurationError
+
 
 class SageIranianCitiesSettings:
     _settings: Dict[str, bool]
@@ -23,5 +26,6 @@ class SageIranianCitiesSettings:
         raise AttributeError(
             f"'{self.__class__.__name__}' object has no attribute '{item}'"
         )
+
 
 sage_iranian_cities_settings = SageIranianCitiesSettings()
