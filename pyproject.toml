@@ -26,6 +26,7 @@ mypy = "^1.11.1"
 sphinx-rtd-theme = "^2.0.0"
 tox = "^4.16.0"
 pylint = "^3.2.6"
+pylint-django = "^2.5.5"
 docformatter = "^1.7.5"
 commitizen = "^3.28.0"
 
@@ -168,12 +169,24 @@ increment_types = ["feat", "fix"]
 
 [tool.pylint]
 disable = [
+    "C0103",  # Invalid constant name
     "C0114",  # Missing module docstring
     "C0115",  # Missing class docstring
     "C0116",  # Missing function or method docstring
-    "E1101",  # Instance of 'Foo' has no 'bar' member (Django dynamic attributes)
-    "W0212",  # Access to a protected member _foo of a client class
-    "C0330",  # Wrong hanging indentation before block (conflicts with Black)
+    "E1101",  # Instance of 'Foo' has no 'bar' member
+    "W0212",  # Access to a protected member
+    "C0301",  # Line too long
+    "C0411",  # Wrong import order
+    "W0611",  # Unused imports
+    "W0613",  # Unused arguments
+    "W0622",  # Redefining built-in names
+    "R0903",  # Too few public methods
+    "R0801",  # Duplicate code
+    "W0621",
+    "C0415",
+    "R1719",  # The if expression can be replaced with 'bool(test)'
+    "R1705",  # Unnecessary "elif" after "return"
+    "R0401",
 ]
 max-line-length = 88
 ignore = [
@@ -187,11 +200,12 @@ ignore = [
     ".mypy_cache/*",
     ".pytest_cache/*"
 ]
+django-settings-module= "kernel.settings"
 load-plugins = [
     "pylint_django",
     "pylint.extensions.docparams",
+    
 ]
-django-settings-module = "myproject.settings"
 good-names = [
     "qs",  # QuerySet abbreviation
     "pk",  # Primary key abbreviation
@@ -202,10 +216,6 @@ const-rgx = "([A-Z_][A-Z0-9_]*)|(__.*__)"
 attr-rgx = "[a-z_][a-z0-9_]{2,30}$"
 variable-rgx = "[a-z_][a-z0-9_]{2,30}$"
 argument-rgx = "[a-z_][a-z0-9_]{2,30}$"
-argument-name-hint = [
-    "cls",  # class method first argument
-    "self",  # instance method first argument
-]
 method-rgx = "[a-z_][a-z0-9_]{2,30}$"
 function-rgx = "[a-z_][a-z0-9_]{2,30}$"
 class-rgx = "[A-Z_][a-zA-Z0-9]+$"
