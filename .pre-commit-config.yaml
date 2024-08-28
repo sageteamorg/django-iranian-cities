@@ -1,0 +1,29 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: (migrations/|tests/|docs/|static/|media/).*
+      - id: end-of-file-fixer
+        exclude: (migrations/|tests/|docs/|static/|media/).*
+      - id: check-added-large-files
+        exclude: (migrations/|tests/|docs/|static/|media/).*
+      - id: check-case-conflict
+        exclude: (migrations/|tests/|docs/|static/|media/).*
+      - id: check-merge-conflict
+        exclude: (migrations/|tests/|docs/|static/|media/).*
+      - id: check-docstring-first
+        exclude: (migrations/|tests/|docs/|static/|media/).*
+
+
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+      - id: isort
+        exclude: (migrations/|tests/|docs/|static/|media/).*
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        exclude: (migrations/|tests/|docs/|static/|media/).*

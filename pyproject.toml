@@ -233,7 +233,7 @@ django-settings-module= "kernel.settings"
 load-plugins = [
     "pylint_django",
     "pylint.extensions.docparams",
-    
+
 ]
 good-names = [
     "qs",  # QuerySet abbreviation
