@@ -5,9 +5,7 @@ from iranian_cities.mixins.base_location import BaseLocation
 
 
 class Province(BaseLocation):
-    """
-    Represents a province entity within the application.
-    """
+    """Represents a province entity within the application."""
 
     class Meta(BaseLocation.Meta):
         verbose_name = _("Province")
@@ -17,9 +15,7 @@ class Province(BaseLocation):
 
 
 class County(BaseLocation):
-    """
-    Represents a county within a province.
-    """
+    """Represents a county within a province."""
 
     province = models.ForeignKey(
         Province,
@@ -38,9 +34,7 @@ class County(BaseLocation):
 
 
 class District(BaseLocation):
-    """
-    Represents a district within a county.
-    """
+    """Represents a district within a county."""
 
     province = models.ForeignKey(
         Province,
@@ -67,9 +61,7 @@ class District(BaseLocation):
 
 
 class City(BaseLocation):
-    """
-    Represents a city within a district.
-    """
+    """Represents a city within a district."""
 
     province = models.ForeignKey(
         Province,
@@ -109,9 +101,7 @@ class City(BaseLocation):
 
 
 class RuralDistrict(BaseLocation):
-    """
-    Represents a rural district within a district.
-    """
+    """Represents a rural district within a district."""
 
     province = models.ForeignKey(
         Province,
@@ -146,9 +136,7 @@ class RuralDistrict(BaseLocation):
 
 
 class Village(BaseLocation):
-    """
-    Represents a village within a rural district.
-    """
+    """Represents a village within a rural district."""
 
     province = models.ForeignKey(
         Province,

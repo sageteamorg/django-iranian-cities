@@ -14,9 +14,7 @@ class IranianCitiesAdminReadOnlyEnabled:
 
 class DynamicInlineAdmin:
     def get_dynamic_inlines(self, model):
-        """
-        Returns the list of inlines based on the settings.
-        """
+        """Returns the list of inlines based on the settings."""
         from iranian_cities.admin import (
             CityInline,
             County,

@@ -19,6 +19,7 @@ class SageError(Exception):
         __init__(detail: Optional[str] = None, code: Optional[str] = None, section_code: Optional[str] = None):
             Initializes the error with specific details.
         __str__() -> str: Returns a formatted string representation of the error.
+
     """
 
     status_code: int = 500
@@ -54,6 +55,7 @@ class IranianCitiesError(SageError):
         default_detail (str): Default error message for Iranian Cities errors.
         default_code (str): Default error code for Iranian Cities errors.
         section_code (str): Section code for Iranian Cities errors.
+
     """
 
     status_code: int = 500
@@ -73,6 +75,7 @@ class IranianCitiesConfigurationError(IranianCitiesError):
         default_detail (str): Default error message for configuration errors.
         default_code (str): Default error code for configuration errors.
         section_code (str): Section code for configuration errors.
+
     """
 
     status_code: int = 400

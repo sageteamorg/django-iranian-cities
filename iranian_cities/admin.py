@@ -21,12 +21,14 @@ from iranian_cities.models import (
 
 
 class IranianCitiesAdmin(admin.ModelAdmin):
-    """Custom admin model for Iranian cities with a custom form field for foreign key."""
+    """Custom admin model for Iranian cities with a custom form field for
+    foreign key."""
 
     def formfield_for_foreignkey(
         self, db_field: ForeignKey, request: HttpRequest, **kwargs: Any
     ) -> Any:
-        """Override the default form field for foreign keys to use ForeignKeyRawIdWidget."""
+        """Override the default form field for foreign keys to use
+        ForeignKeyRawIdWidget."""
         db: Optional[str] = kwargs.get("using")
         kwargs["widget"] = widgets.ForeignKeyRawIdWidget(
             db_field.remote_field, self.admin_site, using=db

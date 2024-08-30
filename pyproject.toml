@@ -101,7 +101,8 @@ exclude = [
 [tool.ruff.lint]
 ignore = [
     "E203",  # Ignore whitespace before ':', ';', or '#'
-    "E501"   # Ignore line length issues (lines longer than 88 characters)
+    "E501",   # Ignore line length issues (lines longer than 88 characters)
+    "F401"
 ]
 select = [
     "E",     # Select all PEP8 error codes

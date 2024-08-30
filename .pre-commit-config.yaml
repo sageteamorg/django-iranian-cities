@@ -15,6 +15,13 @@ repos:
       - id: check-docstring-first
         exclude: (migrations/|tests/|docs/|static/|media/).*
 
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.5.5
+    hooks:
+      - id: ruff
+        args: ["--config=pyproject.toml"]
+        exclude: (migrations/|tests/|docs/|static/|media/|apps.py).*
+
   - repo: https://github.com/pre-commit/mirrors-isort
     rev: v5.10.1
     hooks:
@@ -41,6 +48,21 @@ repos:
         args: ["-c", "pyproject.toml", "-r", "."]
         additional_dependencies: [ "bandit[toml]" ]
         exclude: (migrations/|tests/|docs/|static/|media/).*
+
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.7.5
+    hooks:
+      - id: docformatter
+        args: ["--in-place", "--recursive", "--blank"]
+        exclude: (migrations/|tests/|docs/|static/|media/).*
+
+  - repo: https://github.com/rstcheck/rstcheck
+    rev: "v6.2.4"
+    hooks:
+      - id: rstcheck
+        args: ["--report-level=warning"]
+        files: ^(docs/(.*/)*.*\.rst)
+        additional_dependencies: [Sphinx==6.2.1]
 
   - repo: local
     hooks:

@@ -29,7 +29,7 @@ Each test file should follow a structured format:
 - **Imports:** Group imports logically, starting with standard library imports, followed by third-party imports, and finally local application imports.
 
 Example File Structure
---------------
+----------------------------------------
 
 .. code-block:: python
 
@@ -57,7 +57,7 @@ Example File Structure
             pass
 
 Class and Function Naming Conventions
--------------------------------------
+---------------------------------------
 
 - **Class Names:** Use the `Test` prefix followed by the name of the class or module being tested. For example, if you're testing the `MyModelAdmin` class, name your test class `TestMyModelAdmin`.
   
@@ -69,7 +69,7 @@ Markers
 Each test file should include a `pytestmark` variable at the top, which is a list of markers. These markers help categorize tests and can include Django-specific markers (e.g., `django_db`), custom markers (e.g., `admin`, `settings_checks`), and conditional markers (e.g., `skipif`).
 
 Example of pytestmark
---------------
+----------------------------------------
 
 .. code-block:: python
 
@@ -85,7 +85,7 @@ Docstrings
 Every test function should include a docstring that describes the purpose of the test. The docstring should explain what the test is verifying, why it's important, and any relevant details about the setup or expected outcome.
 
 Example of a Docstring
---------------
+---------------------------------------
 
 .. code-block:: python
 
@@ -103,7 +103,7 @@ Type Annotations
 All test functions and methods should include type annotations. This improves code clarity and helps with static analysis tools.
 
 Example of Type Annotations
---------------
+---------------------------------------
 
 .. code-block:: python
 
@@ -116,7 +116,7 @@ Using Fixtures
 Fixtures in Pytest are a powerful way to manage test dependencies. Use fixtures to set up the state your tests need, such as database records, user authentication, or Django settings.
 
 Example of Using a Fixture
---------------
+---------------------------------------
 
 .. code-block:: python
 
@@ -177,7 +177,7 @@ Admin Model Test Example
                 assert list(formfield.queryset) == [MyModel.objects.get(name="Test")]
 
 Settings Check Test Example
---------------
+---------------------------------------
 
 .. code-block:: python
 

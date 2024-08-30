@@ -3,9 +3,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class BaseLocation(Model):
-    """
-    Abstract base model for location entities.
-    """
+    """Abstract base model for location entities."""
 
     name = CharField(
         verbose_name=_("Name"),
