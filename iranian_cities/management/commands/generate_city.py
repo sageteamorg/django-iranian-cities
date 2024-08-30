@@ -19,19 +19,20 @@ logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
-    """Management command to generate and populate database tables for Iranian cities."""
+    """Management command to generate and populate database tables for Iranian
+    cities."""
 
     help = "Generate all data"
 
     def read_csv(self, path: str) -> List[Dict[str, str]]:
-        """
-        Read a CSV file and return a list of dictionaries.
+        """Read a CSV file and return a list of dictionaries.
 
         Args:
             path (str): The path to the CSV file.
 
         Returns:
             List[Dict[str, str]]: A list of dictionaries representing CSV rows.
+
         """
         with open(path, encoding="utf-8") as f:
             logger.debug("Reading CSV file")
@@ -41,11 +42,11 @@ class Command(BaseCommand):
             return csv_reader
 
     def prompt_user(self) -> Tuple[bool, str]:
-        """
-        Prompt the user to decide whether to flush the tables.
+        """Prompt the user to decide whether to flush the tables.
 
         Returns:
             bool: True if the tables should be flushed, False otherwise.
+
         """
         response: Union[None, str] = None
         logger.debug("Checking if the database is has data in the database")
@@ -115,11 +116,11 @@ class Command(BaseCommand):
         print("All tables have been flushed.")
 
     def generate_province(self, path: str) -> None:
-        """
-        Generate and populate the Province table.
+        """Generate and populate the Province table.
 
         Args:
             path (str): The path to the CSV file containing province data.
+
         """
         with open(path, encoding="utf-8") as f:
             data = csv.DictReader(f)
@@ -133,11 +134,11 @@ class Command(BaseCommand):
             print("Province Objects Created Successfully")
 
     def generate_county(self, path: str) -> None:
-        """
-        Generate and populate the County table.
+        """Generate and populate the County table.
 
         Args:
             path (str): The path to the CSV file containing county data.
+
         """
         with open(path, encoding="utf-8") as f:
             data = csv.DictReader(f)
@@ -154,11 +155,11 @@ class Command(BaseCommand):
             print("County Objects Created Successfully")
 
     def generate_district(self, path: str) -> None:
-        """
-        Generate and populate the District table.
+        """Generate and populate the District table.
 
         Args:
             path (str): The path to the CSV file containing district data.
+
         """
         with open(path, encoding="utf-8") as f:
             data = csv.DictReader(f)
@@ -176,11 +177,11 @@ class Command(BaseCommand):
             print("District Objects Created Successfully")
 
     def generate_city(self, path: str) -> None:
-        """
-        Generate and populate the City table.
+        """Generate and populate the City table.
 
         Args:
             path (str): The path to the CSV file containing city data.
+
         """
         with open(path, encoding="utf-8") as f:
             data = csv.DictReader(f)
@@ -200,11 +201,11 @@ class Command(BaseCommand):
             print("City Objects Created Successfully")
 
     def generate_rural_district(self, path: str) -> None:
-        """
-        Generate and populate the RuralDistrict table.
+        """Generate and populate the RuralDistrict table.
 
         Args:
             path (str): The path to the CSV file containing rural district data.
+
         """
         with open(path, encoding="utf-8") as f:
             data = csv.DictReader(f)
@@ -223,11 +224,11 @@ class Command(BaseCommand):
             print("RuralDistrict Objects Created Successfully")
 
     def generate_village(self, path: str) -> None:
-        """
-        Generate and populate the Village table.
+        """Generate and populate the Village table.
 
         Args:
             path (str): The path to the CSV file containing village data.
+
         """
         with open(path, encoding="utf-8") as f:
             data = csv.DictReader(f)
@@ -248,12 +249,12 @@ class Command(BaseCommand):
             print("Village Objects Created Successfully")
 
     def handle(self, *args, **options) -> None:
-        """
-        Handle the command execution, prompting user and generating data.
+        """Handle the command execution, prompting user and generating data.
 
         Args:
             *args: Variable length argument list.
             **options: Arbitrary keyword arguments.
+
         """
         result, response = self.prompt_user()
         if not result and response == "cancel":

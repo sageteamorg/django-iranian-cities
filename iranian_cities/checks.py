@@ -10,8 +10,7 @@ from iranian_cities.exc import IranianCitiesConfigurationError
 def check_iranian_cities_config(
     app_configs: Dict[str, Any], **kwargs: Any
 ) -> List[Error]:
-    """
-    Check the Iranian Cities configuration for the application.
+    """Check the Iranian Cities configuration for the application.
 
     This function verifies that all required Iranian Cities settings are present and ensure the settings are correct.
     Any errors encountered during these checks are returned.
@@ -39,6 +38,7 @@ def check_iranian_cities_config(
     >>> if errors:
     ...     for error in errors:
     ...         print(error)
+
     """
     errors: List[Error] = []
 

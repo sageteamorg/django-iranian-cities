@@ -9,13 +9,13 @@ Quick Start
 
 2. **Add `iranian_cities` to `INSTALLED_APPS` in your Django settings**:
 
-    .. code-block:: python
+   .. code-block:: python
 
-        INSTALLED_APPS = [
-            ...
-            'iranian_cities',
-            ...
-        ]
+       INSTALLED_APPS = [
+           ...
+           'iranian_cities',
+           ...
+       ]
 
 3. **Run migrations to apply model changes**:
 
