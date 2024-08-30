@@ -44,14 +44,17 @@ Example File Structure
     pytestmark = [
         pytest.mark.django_db,
         pytest.mark.admin,
-        pytest.mark.skipif(sys.version_info < (3, 8), reason="Python 3.8 or higher required")
+        pytest.mark.skipif(
+            sys.version_info < (3, 8), reason="Python 3.8 or higher required"
+        ),
     ]
 
     User = get_user_model()
 
+
     class TestMyModelAdmin:
         """Class for testing MyModelAdmin functionality."""
-        
+
         def test_some_functionality(self) -> None:
             # Test logic goes here
             pass
@@ -76,7 +79,9 @@ Example of pytestmark
     pytestmark = [
         pytest.mark.django_db,
         pytest.mark.admin,
-        pytest.mark.skipif(sys.version_info < (3, 8), reason="Python 3.8 or higher required")
+        pytest.mark.skipif(
+            sys.version_info < (3, 8), reason="Python 3.8 or higher required"
+        ),
     ]
 
 Docstrings
@@ -149,14 +154,17 @@ Admin Model Test Example
     pytestmark = [
         pytest.mark.django_db,
         pytest.mark.admin,
-        pytest.mark.skipif(sys.version_info < (3, 8), reason="Python 3.8 or higher required")
+        pytest.mark.skipif(
+            sys.version_info < (3, 8), reason="Python 3.8 or higher required"
+        ),
     ]
 
     User = get_user_model()
 
+
     class TestMyModelAdmin:
         """Class for testing MyModelAdmin functionality."""
-        
+
         def test_formfield_for_foreignkey_sets_queryset(self) -> None:
             """
             Test that the formfield for the ForeignKey correctly sets the queryset.
@@ -165,12 +173,18 @@ Admin Model Test Example
             """
             admin_site = AdminSite()
             request = HttpRequest()
-            request.user = User.objects.create_superuser('admin', 'admin@example.com', 'password')
-            
+            request.user = User.objects.create_superuser(
+                "admin", "admin@example.com", "password"
+            )
+
             model_admin = MyModelAdmin(model=MyModel, admin_site=admin_site)
-            db_field = MyModel._meta.get_field('related_model')
-            
-            with patch.object(MyModelAdmin, 'get_field_queryset', return_value=MyModel.objects.filter(name="Test")) as mock_get_field_queryset:
+            db_field = MyModel._meta.get_field("related_model")
+
+            with patch.object(
+                MyModelAdmin,
+                "get_field_queryset",
+                return_value=MyModel.objects.filter(name="Test"),
+            ) as mock_get_field_queryset:
                 formfield = model_admin.formfield_for_foreignkey(db_field, request)
                 mock_get_field_queryset.assert_called_once_with(None, db_field, request)
                 assert isinstance(formfield.widget, widgets.ForeignKeyRawIdWidget)
@@ -189,12 +203,15 @@ Settings Check Test Example
 
     pytestmark = [
         pytest.mark.settings_checks,
-        pytest.mark.skipif(sys.version_info < (3, 8), reason="Python 3.8 or higher required")
+        pytest.mark.skipif(
+            sys.version_info < (3, 8), reason="Python 3.8 or higher required"
+        ),
     ]
+
 
     class TestMyAppConfig:
         """Test MyApp configuration and settings."""
-        
+
         def test_check_my_app_config_correct_settings(self, settings) -> None:
             """
             Test the MyApp configuration checker with correct settings.
@@ -204,7 +221,7 @@ Settings Check Test Example
             settings.MY_SETTING_ENABLED = True
             errors = check_my_app_config({})
             assert len(errors) == 0
-        
+
         def test_check_my_app_config_invalid_type(self, settings) -> None:
             """
             Test the MyApp configuration checker with invalid type settings.

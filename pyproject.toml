@@ -1,13 +1,17 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = [ "poetry-core>=1" ]
+
 [tool.poetry]
 name = "django-iranian-cities"
 version = "2.0.0"
 description = "Iranian cities support for Django"
-authors = ["Sepehr Akbarzadeh <sepehr@sageteam.org>"]
+authors = [ "Sepehr Akbarzadeh <sepehr@sageteam.org>" ]
 license = "GNU"
-keywords = ["django", "iranian", "cities"]
+keywords = [ "django", "iranian", "cities" ]
 repository = "https://github.com/sageteamorg/django-iranian-cities"
 packages = [
-    {include = "iranian_cities"}
+  { include = "iranian_cities" },
 ]
 
 [tool.poetry.urls]
@@ -17,8 +21,8 @@ packages = [
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
 django = [
-    { version = ">=4.2,<5.0", python = ">=3.8,<3.10"},
-    { version = ">=4.2,<5.3", python = ">=3.10" }  # Django 4.2 and 5.x for Python 3.10+
+  { version = ">=4.2,<5.0", python = ">=3.8,<3.10" },
+  { version = ">=4.2,<5.3", python = ">=3.10" },      # Django 4.2 and 5.x for Python 3.10+
 ]
 
 [tool.poetry.dev-dependencies]
@@ -37,93 +41,6 @@ pylint = "^3.2.6"
 pylint-django = "^2.5.5"
 docformatter = "^1.7.5"
 commitizen = "^3.28.0"
-
-
-[tool.pytest.ini_options]
-addopts = "--cov --cov-report=term-missing --cov-report=html"
-DJANGO_SETTINGS_MODULE = "kernel.settings"
-python_files = ["tests.py", "test_*.py"]
-testpaths = ["tests"]
-markers = [
-    "admin: mark test to check admin tests",
-    "models_str_method: mark test to check __str__ methods of models",
-    "models_code_field: mark test to check code fields in models",
-    "models_code_field_unique: mark test to check code fields are unique",
-    "settings_admin_permission: mark test to check admin permissions",
-    "settings_checks: mark test to check settings configuration",
-]
-norecursedirs = [
-    "migrations",
-    "static",
-    "media",
-    "node_modules",
-    "env",
-    "venv",
-    ".venv",
-    "dist",
-    "build",
-    "kernel"
-]
-
-[tool.coverage.run]
-omit = [
-    "*/migrations/*",
-    "kernel/*",
-    "*/apps.py",
-    "manage.py",
-]
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "if self\\.debug",
-    "raise AssertionError",
-    "if 0:",
-    "if __name__ == .__main__.:"
-]
-
-[tool.ruff]
-line-length = 88
-exclude = [
-    "venv/*",
-    ".venv/*",
-    "build/*",
-    "dist/*",
-    ".git/*",
-    "__pycache__/*",
-    "*.egg-info/*",
-    ".mypy_cache/*",
-    ".pytest_cache/*",
-    "migrations/*"
-]
-
-[tool.ruff.lint]
-ignore = [
-    "E203",  # Ignore whitespace before ':', ';', or '#'
-    "E501",   # Ignore line length issues (lines longer than 88 characters)
-    "F401"
-]
-select = [
-    "E",     # Select all PEP8 error codes
-    "W",     # Select all warnings
-    "F",     # Select all potential runtime errors
-    "C90"    # Select custom or extended error code C90
-]
-
-[tool.mypy]
-mypy_path = "stubs"
-disallow_untyped_calls = true
-disallow_untyped_defs = true
-ignore_missing_imports = true
-explicit_package_bases = true
-exclude = '''
-^docs/source/conf.py|
-^build/|
-^tests/|
-^stubs/|
-^kernel/
-'''
 
 [tool.black]
 line-length = 88
@@ -148,77 +65,98 @@ exclude = '''
 )/
 '''
 
+[tool.ruff]
+line-length = 88
+exclude = [
+  "*.egg-info/*",
+  ".git/*",
+  ".mypy_cache/*",
+  ".pytest_cache/*",
+  ".venv/*",
+  "__pycache__/*",
+  "build/*",
+  "dist/*",
+  "migrations/*",
+  "venv/*",
+]
+
+lint.select = [
+  "C90", # Select custom or extended error code C90
+  "E",   # Select all PEP8 error codes
+  "F",   # Select all potential runtime errors
+  "W",   # Select all warnings
+]
+lint.ignore = [
+  "E203", # Ignore whitespace before ':', ';', or '#'
+  "E501", # Ignore line length issues (lines longer than 88 characters)
+  "F401",
+]
+
 [tool.isort]
 profile = "black"
 line_length = 88
 skip = [
-    "venv",
-    ".venv",
-    "build",
-    "dist",
-    ".git",
-    "__pycache__",
-    "*.egg-info",
-    ".mypy_cache",
-    ".pytest_cache",
-    "migrations",
-    "static",
-    "media",
-    "node_modules",
-    "env",
-    "kernel"
+  "venv",
+  ".venv",
+  "build",
+  "dist",
+  ".git",
+  "__pycache__",
+  "*.egg-info",
+  ".mypy_cache",
+  ".pytest_cache",
+  "migrations",
+  "static",
+  "media",
+  "node_modules",
+  "env",
+  "kernel",
 ]
-
-[tool.commitizen]
-name = "cz_conventional_commits"
-version = "0.1.0"
-
-[tool.commitizen.settings]
-increment_types = ["feat", "fix"]
 
 [tool.pylint]
 disable = [
-    "C0103",  # Invalid constant name
-    "C0114",  # Missing module docstring
-    "C0115",  # Missing class docstring
-    "C0116",  # Missing function or method docstring
-    "E1101",  # Instance of 'Foo' has no 'bar' member
-    "W0212",  # Access to a protected member
-    "C0301",  # Line too long
-    "C0411",  # Wrong import order
-    "W0611",  # Unused imports
-    "W0613",  # Unused arguments
-    "W0622",  # Redefining built-in names
-    "R0903",  # Too few public methods
-    "R0801",  # Duplicate code
-    "W0621",
-    "C0415",
-    "R1719",  # The if expression can be replaced with 'bool(test)'
-    "R1705",  # Unnecessary "elif" after "return"
-    "R0401",
+  "C0103", # Invalid constant name
+  "C0114", # Missing module docstring
+  "C0115", # Missing class docstring
+  "C0116", # Missing function or method docstring
+  "E1101", # Instance of 'Foo' has no 'bar' member
+  "W0212", # Access to a protected member
+  "C0301", # Line too long
+  "C0411", # Wrong import order
+  "W0611", # Unused imports
+  "W0613", # Unused arguments
+  "W0622", # Redefining built-in names
+  "R0903", # Too few public methods
+  "R0801", # Duplicate code
+  "W0621",
+  "C0415",
+  "R1719", # The if expression can be replaced with 'bool(test)'
+  "R1705", # Unnecessary "elif" after "return"
+  "R0401",
+  "W0223",
 ]
 max-line-length = 88
 ignore = [
-    "migrations/*",
-    "venv/*",
-    "build/*",
-    "dist/*",
-    ".git/*",
-    "__pycache__/*",
-    "*.egg-info/*",
-    ".mypy_cache/*",
-    ".pytest_cache/*"
+  "migrations/*",
+  "venv/*",
+  "build/*",
+  "dist/*",
+  ".git/*",
+  "__pycache__/*",
+  "*.egg-info/*",
+  ".mypy_cache/*",
+  ".pytest_cache/*",
 ]
-django-settings-module= "kernel.settings"
+django-settings-module = "kernel.settings"
 load-plugins = [
-    "pylint_django",
-    "pylint.extensions.docparams",
+  "pylint_django",
+  "pylint.extensions.docparams",
 
 ]
 good-names = [
-    "qs",  # QuerySet abbreviation
-    "pk",  # Primary key abbreviation
-    "id",  # Identifier
+  "qs", # QuerySet abbreviation
+  "pk", # Primary key abbreviation
+  "id", # Identifier
 ]
 suggestion-mode = true
 const-rgx = "([A-Z_][A-Z0-9_]*)|(__.*__)"
@@ -230,6 +168,67 @@ function-rgx = "[a-z_][a-z0-9_]{2,30}$"
 class-rgx = "[A-Z_][a-zA-Z0-9]+$"
 module-rgx = "(([a-z_][a-z0-9_]*)|(__.*__))$"
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.pytest.ini_options]
+addopts = "--cov --cov-report=term-missing --cov-report=html"
+DJANGO_SETTINGS_MODULE = "kernel.settings"
+python_files = [ "tests.py", "test_*.py" ]
+testpaths = [ "tests" ]
+markers = [
+  "admin: mark test to check admin tests",
+  "models_str_method: mark test to check __str__ methods of models",
+  "models_code_field: mark test to check code fields in models",
+  "models_code_field_unique: mark test to check code fields are unique",
+  "settings_admin_permission: mark test to check admin permissions",
+  "settings_checks: mark test to check settings configuration",
+]
+norecursedirs = [
+  "migrations",
+  "static",
+  "media",
+  "node_modules",
+  "env",
+  "venv",
+  ".venv",
+  "dist",
+  "build",
+  "kernel",
+]
+
+[tool.coverage.run]
+omit = [
+  "*/migrations/*",
+  "kernel/*",
+  "*/apps.py",
+  "manage.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "if self\\.debug",
+  "raise AssertionError",
+  "if 0:",
+  "if __name__ == .__main__.:",
+]
+
+[tool.mypy]
+mypy_path = "stubs"
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+explicit_package_bases = true
+exclude = '''
+^docs/source/conf.py|
+^build/|
+^tests/|
+^stubs/|
+^kernel/
+'''
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.1.0"
+
+[tool.commitizen.settings]
+increment_types = [ "feat", "fix" ]
