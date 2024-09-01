@@ -6,6 +6,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      DJANGO_SETTINGS_MODULE: tests.testapp.settings.settings
+
     steps:
       - uses: actions/checkout@v4
 
