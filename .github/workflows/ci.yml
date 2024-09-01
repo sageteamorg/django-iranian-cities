@@ -6,6 +6,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      DJANGO_SETTINGS_MODULE: tests.testapp.settings.settings
+
     steps:
       - uses: actions/checkout@v4
 
@@ -19,6 +22,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install coverage codecov pytest poetry
           pip install -r packages/requirements-dev.txt
+
+      - name: Run tests with coverage
+        run: pytest --cov=iranian_cities --cov-report=xml
 
       - name: Run Tox tests
         run: tox
