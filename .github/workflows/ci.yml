@@ -20,9 +20,6 @@ jobs:
           pip install coverage codecov pytest poetry
           pip install -r packages/requirements-dev.txt
 
-      - name: Run tests with coverage
-        run: pytest --cov=iranian_cities --cov-report=xml
-
       - name: Run Tox tests
         run: tox
 
