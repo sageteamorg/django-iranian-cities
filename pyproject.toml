@@ -41,6 +41,28 @@ pylint = "^3.2.6"
 pylint-django = "^2.5.5"
 docformatter = "^1.7.5"
 commitizen = "^3.28.0"
+bandit = {extras = ["toml"], version = "^1.7.9"}
+django-debug-toolbar = "^4.4.6"
+django-migration-linter = "^5.1.0"
+
+[tool.bandit]
+targets = ["./iranian_cities"]
+exclude_dirs = [
+    "tests",
+    "migrations",
+]
+severity = "medium"
+confidence = "medium"
+max_lines = 500
+progress = true
+reports = true
+output_format = "screen"
+output_file = "bandit_report.txt"
+include = ["B101", "B102"]
+exclude_tests = ["B301", "B302"]
+
+[tool.bandit.plugins]
+B104 = { check_typed_list = true }
 
 [tool.black]
 line-length = 88
