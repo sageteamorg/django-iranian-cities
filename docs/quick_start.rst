@@ -12,9 +12,8 @@ Quick Start
    .. code-block:: python
 
        INSTALLED_APPS = [
-           ...
-           'iranian_cities',
-           ...
+           ## Other apps
+           "iranian_cities",
        ]
 
 3. **Run migrations to apply model changes**:
