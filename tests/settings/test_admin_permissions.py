@@ -42,9 +42,9 @@ class TestAdminPermission:
         sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_DELETE_READONLY_ENABLED = False
         sage_iranian_cities_settings.IRANIAN_CITIES_ADMIN_CHANGE_READONLY_ENABLED = True
 
-        assert settings_instance.has_add_permission(request) is True
-        assert settings_instance.has_delete_permission(request) is False
-        assert settings_instance.has_change_permission(request) is True
+        assert settings_instance.has_add_permission(request) is False
+        assert settings_instance.has_delete_permission(request) is True
+        assert settings_instance.has_change_permission(request) is False
 
     def test_dynamic_inline_admin(self) -> None:
         """
