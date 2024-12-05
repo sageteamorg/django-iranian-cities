@@ -1,13 +1,13 @@
 # Django Iranian Cities
 
-The [django-iranian-cities](https://github.com/sageteam-org/django-iranian-cities) is a valuable package based on Django Web Framework for Iranian cities support. You can see full documentation here [readthedocs](https://django-iranian-cities.readthedocs.io/).
+The [django-iranian-cities](https://github.com/sageteamorg/django-iranian-cities) is a valuable package based on Django Web Framework for Iranian cities support. You can see full documentation here [readthedocs](https://django-iranian-city.readthedocs.io/).
 
 [![SageTeam](https://github.com/sageteam-org/django-sage-painless/blob/develop/docs/images/tag_sage.png?raw=true "SageTeam")](http://sageteam.org)
 
 ![License](https://img.shields.io/github/license/sageteam-org/django-iranian-cities "django-iranian-cities")
 ![PyPI release](https://img.shields.io/pypi/v/django-iranian-cities "django-iranian-cities")
 ![Supported Python versions](https://img.shields.io/pypi/pyversions/django-iranian-cities "django-iranian-cities")
-![Documentation](https://img.shields.io/readthedocs/django-iranian-city "django-iranian-cities")
+![Documentation](https://img.shields.io/readthedocs/django-iranian-cities "django-iranian-cities")
 ![Last Commit](https://img.shields.io/github/last-commit/sageteam-org/django-iranian-cities/master "django-iranian-cities")
 ![Languages](https://img.shields.io/github/languages/top/sageteam-org/django-iranian-cities "django-iranian-cities")
 
