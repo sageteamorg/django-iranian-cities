@@ -32,7 +32,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install coverage codecov pytest poetry
-          pip install -r packages/requirements-dev.txt
+          pip install -r requirements/dev.txt
 
       - name: Run tests with coverage
         run: pytest --cov=iranian_cities --cov-report=xml
