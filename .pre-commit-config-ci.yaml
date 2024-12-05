@@ -39,7 +39,7 @@ repos:
       - id: ruff
         args: ["--config=pyproject.toml"]
         exclude: (migrations/|tests/|docs/|static/|media/|apps.py).*
-      
+
   - repo: https://github.com/pre-commit/mirrors-isort
     rev: v5.10.1
     hooks:

@@ -10,7 +10,7 @@ jobs:
     env:
       DJANGO_SETTINGS_MODULE: tests.testapp.settings.settings
       PYTHONPATH: ${{ github.workspace }}
-     
+
     strategy:
       matrix:
         python-version:
@@ -19,7 +19,7 @@ jobs:
           - '3.10'
           - '3.11'
           - '3.12'
-        
+
     steps:
       - uses: actions/checkout@v4
 
