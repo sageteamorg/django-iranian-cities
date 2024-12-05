@@ -4,29 +4,46 @@ on: [push, pull_request]
 
 jobs:
   test:
+    name: Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
 
+    env:
+      DJANGO_SETTINGS_MODULE: tests.testapp.settings.settings
+      PYTHONPATH: ${{ github.workspace }}
+     
+    strategy:
+      matrix:
+        python-version:
+          - '3.8'
+          - '3.9'
+          - '3.10'
+          - '3.11'
+          - '3.12'
+        
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install coverage codecov pytest
-        pip install -r packages/requirements-dev.txt
-    - name: Run tests
-      run: |
-        coverage run -m pytest
-    - name: Generate coverage report
-      run: coverage xml
-    - name: Run Tox tests
-      run: tox
-    - name: Run pre-commmit hooks
-      run: tox -e pre-commit
-    - name: Upload coverage to Codecov
-      run: codecov
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install coverage codecov pytest poetry
+          pip install -r packages/requirements-dev.txt
+
+      - name: Run tests with coverage
+        run: pytest --cov=iranian_cities --cov-report=xml
+
+      - name: Run Tox tests
+        run: tox
+
+      - name: Run pre-commit hooks
+        run: pre-commit run --all-files --config=.pre-commit-config-ci.yaml
+
+      - name: Upload coverage to Codecov
+        run: codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

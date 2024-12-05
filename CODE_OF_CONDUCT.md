@@ -56,7 +56,7 @@ Thank you for your interest in contributing to our package! This document outlin
 11. **Export Dependencies**: Export dependencies for development and production.
     ```bash
     poetry export -f requirements.txt --output packages/requirements.txt --without-hashes
-    poetry export -f requirements.txt --dev --output packages/requirements-dev.txt --without-hashes
+    poetry export -f requirements.txt --with dev --output packages/requirements-dev.txt --without-hashes
     ```
 
 ## Commitizen Message Rule
