@@ -7,8 +7,7 @@ The [django-iranian-cities](https://github.com/sageteam-org/django-iranian-citie
 ![License](https://img.shields.io/github/license/sageteam-org/django-iranian-cities "django-iranian-cities")
 ![PyPI release](https://img.shields.io/pypi/v/django-iranian-cities "django-iranian-cities")
 ![Supported Python versions](https://img.shields.io/pypi/pyversions/django-iranian-cities "django-iranian-cities")
-![Supported Django versions](https://img.shields.io/pypi/djversions/django-iranian-cities "django-iranian-cities")
-![Documentation](https://img.shields.io/readthedocs/django-iranian-cities "django-iranian-cities")
+![Documentation](https://img.shields.io/readthedocs/django-iranian-city "django-iranian-cities")
 ![Last Commit](https://img.shields.io/github/last-commit/sageteam-org/django-iranian-cities/master "django-iranian-cities")
 ![Languages](https://img.shields.io/github/languages/top/sageteam-org/django-iranian-cities "django-iranian-cities")
 
