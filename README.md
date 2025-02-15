@@ -19,7 +19,7 @@ The [django-iranian-cities](https://github.com/sageteamorg/django-iranian-cities
 
 ## Project Detail
 
-- Language: Python > 3.8
+- Language: Python > 3.9
 - Framework: Django > 4.2
 
 ## Getting Started
