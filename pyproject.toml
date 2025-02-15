@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "poetry.core.masonry.api"
-requires = [ "poetry-core>=1" ]
+requires = [ "poetry-core" ]
 
 [tool.poetry]
 name = "django-iranian-cities"
@@ -8,6 +8,7 @@ version = "2.0.0"
 description = "Iranian cities support for Django"
 authors = [ "Sepehr Akbarzadeh <sepehr@sageteam.org>" ]
 license = "GNU"
+readme = "README.md"
 keywords = [ "django", "iranian", "cities" ]
 repository = "https://github.com/sageteamorg/django-iranian-cities"
 packages = [
@@ -19,9 +20,9 @@ packages = [
 "Issues" = "https://github.com/sageteamorg/django-iranian-cities/issues"
 
 [tool.poetry.dependencies]
-python = ">=3.8,<4.0"
+python = ">=3.9,<4.0"
 django = [
-  { version = ">=4.2,<5.0", python = ">=3.8,<3.10" },
+  { version = ">=4.2,<5.0", python = ">=3.9,<3.10" },
   { version = ">=4.2,<5.3", python = ">=3.10" },      # Django 4.2 and 5.x for Python 3.10+
 ]
 
@@ -42,7 +43,7 @@ pylint-django = "^2.5.5"
 docformatter = "^1.7.5"
 commitizen = "^3.28.0"
 bandit = { extras = [ "toml" ], version = "^1.7.9" }
-poetry-plugin-export = "^1.8.0"
+poetry-plugin-export = "^1.9.0"
 django-debug-toolbar = "^4.4.6"
 django-migration-linter = "^5.1.0"
 
